@@ -5,8 +5,8 @@
  * clearance are pending — change `brandName` here and it propagates through
  * visible copy, metadata, structured data, emails and the admin UI.
  *
- * Contact details are deliberately `null` until verified. Components render an
- * honest "to be confirmed" state instead of inventing details.
+ * Owner-confirmed contact details are defaults; environment variables can
+ * override them. Unconfirmed location and hours remain null.
  */
 export const brand = {
   brandName: "ZENSHA AI",
@@ -20,10 +20,10 @@ export const brand = {
   locale: "en_IN",
   currency: "INR",
   contact: {
-    /** [BUSINESS EMAIL] — use a dedicated company inbox, not a personal address. */
-    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || null,
+    /** Owner-confirmed public contact inbox. */
+    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "Vishnus9943@gmail.com",
     /** [VERIFIED NUMBER] — international format, digits only, e.g. 9198XXXXXXXX. */
-    whatsapp: process.env.NEXT_PUBLIC_CONTACT_WHATSAPP || null,
+    whatsapp: process.env.NEXT_PUBLIC_CONTACT_WHATSAPP || "917810008567",
     /** [BUSINESS LOCATION, IF PUBLIC] */
     location: process.env.NEXT_PUBLIC_CONTACT_LOCATION || null,
     /** [VERIFIED HOURS] */

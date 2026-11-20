@@ -28,15 +28,46 @@ export function pageMetadata({
 }
 
 export function organizationJsonLd() {
+  const c = brand.contact;
   return {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "ProfessionalService",
+    "@id": `${brand.siteUrl}/#organization`,
     name: brand.brandName,
     url: brand.siteUrl,
+    logo: `${brand.siteUrl}/icon.svg`,
+    image: `${brand.siteUrl}/opengraph-image`,
     slogan: brand.tagline,
     description: brand.footerDescription,
     founder: { "@type": "Person", name: brand.founder.name },
-    ...(brand.contact.email ? { email: brand.contact.email } : {}),
+    areaServed: { "@type": "Country", name: "India" },
+    priceRange: "₹₹",
+    knowsAbout: ["Website development", "Web applications", "Mobile apps", "AI solutions", "Business automation", "Data engineering"],
+    ...(c.email ? { email: c.email } : {}),
+    ...(c.whatsapp ? { telephone: `+${c.whatsapp}` } : {}),
+    ...(c.location
+      ? {
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Bengaluru",
+            addressRegion: "Karnataka",
+            postalCode: c.location.match(/\d{6}/)?.[0],
+            addressCountry: "IN",
+          },
+        }
+      : {}),
+    ...(c.email || c.whatsapp
+      ? {
+          contactPoint: {
+            "@type": "ContactPoint",
+            contactType: "sales",
+            areaServed: "IN",
+            availableLanguage: ["English"],
+            ...(c.email ? { email: c.email } : {}),
+            ...(c.whatsapp ? { telephone: `+${c.whatsapp}` } : {}),
+          },
+        }
+      : {}),
   };
 }
 

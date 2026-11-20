@@ -59,15 +59,25 @@ Without Supabase the full marketing site works; forms, accounts, cart checkout a
 
 ### Connect Supabase
 1. Create a project at supabase.com. Copy URL, anon key and service-role key into `.env.local`.
-2. Apply the schema: `npx supabase link --project-ref <ref>` then `npx supabase db push` (or paste `supabase/migrations/*.sql` into the SQL editor).
+2. Apply all migrations: `npx supabase link --project-ref <ref>` then `npx supabase db push` (or run each file in `supabase/migrations/` in filename order in the SQL editor). Existing databases must also apply `20261120010000_fix_profile_role_guard.sql`.
 3. Auth → URL configuration: set **Site URL** to `NEXT_PUBLIC_SITE_URL` and add `<site>/auth/callback` to redirect URLs.
-4. Register on the site, then promote yourself:
+4. Register on the site, then promote yourself in the Supabase SQL editor using the `postgres` role:
    ```sql
    update public.profiles set role = 'admin'
    where id = (select id from auth.users where email = 'you@yourcompany.example');
    ```
 5. Visit `/admin` → run **Seed services from code**.
 6. (Optional) `supabase/seed.sql` adds clearly labelled, unpublished example rows.
+
+After applying the migrations to a local or test Supabase database, run `supabase/tests/profile_role_guard.sql` as `postgres` to verify first-admin setup, service-role changes, admin changes and customer protection. The test runs in a transaction and rolls back its fixtures.
+
+To save Supabase keys without copying them into chat or printing them in the terminal, create exactly one hosted project named `zensha-ai`, sign in with `npx.cmd supabase login`, then run:
+
+```powershell
+node scripts/configure-supabase-env.mjs
+```
+
+The script verifies the project's Storage API and saves public/server keys directly to the ignored `.env.local`, preserving unrelated settings. It does not create projects, apply migrations, deploy, or configure Vercel. Use a Free organization and select Mumbai (`ap-south-1`) when available; stop if payment is required. Vercel CLI authentication stays separate from the app's environment variables.
 
 ### Enable Razorpay (only after merchant onboarding)
 1. Add `NEXT_PUBLIC_RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `RAZORPAY_WEBHOOK_SECRET`.
