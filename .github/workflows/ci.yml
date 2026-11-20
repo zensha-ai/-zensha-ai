@@ -38,6 +38,9 @@ jobs:
       - name: Lint
         run: npx eslint src scripts
 
+      - name: Generate route types
+        run: npx next typegen
+
       - name: Type-check
         run: npx tsc --noEmit -p .
 
