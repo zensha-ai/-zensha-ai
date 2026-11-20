@@ -1,0 +1,14 @@
+# Minimal Supabase config for the hosted zensha-ai project.
+# `supabase config push` only changes properties declared here; everything
+# else in the dashboard is left as-is.
+project_id = "zensha-ai"
+
+[auth]
+site_url = "https://zenshaai.com"
+additional_redirect_urls = [
+  "https://zenshaai.com/auth/callback",
+  "https://www.zenshaai.com/auth/callback",
+  "https://zensha-ai.vercel.app/auth/callback",
+  "http://localhost:3000/auth/callback",
+  "http://localhost:3100/auth/callback",
+]
