@@ -107,6 +107,12 @@ The script verifies the project's Storage API and saves public/server keys direc
 2. Add all env vars from `.env.example` (Production + Preview). Keep `NEXT_PUBLIC_ALLOW_INDEXING=false` until launch.
 3. Deploy, then update Supabase Auth Site URL / redirect URLs and the Razorpay webhook URL to the deployed domain.
 
+## CI/CD
+- **CI — GitHub Actions** (`.github/workflows/ci.yml`): every push to `main` and every pull request runs lint, type-check, unit tests, script tests and a production build.
+- **CD — Vercel Git integration**: pushes to `main` deploy to production (https://zenshaai.com); pull requests get a preview URL. Environment variables live in Vercel → Project → Settings → Environment Variables.
+- **Database changes** are applied deliberately, not on every push: `npx supabase db push --remote` (project `zensha-ai`).
+- Recommended: protect `main` on GitHub (Settings → Branches) and require the **CI** check to pass before merging.
+
 ## Launch checklist (honest status)
 - [ ] Brand, company-name and trademark clearance; domain purchased → set `NEXT_PUBLIC_SITE_URL`
 - [ ] Verified business email / WhatsApp / location / hours → `NEXT_PUBLIC_CONTACT_*`
