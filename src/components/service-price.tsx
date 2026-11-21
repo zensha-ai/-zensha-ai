@@ -10,7 +10,7 @@ import { ServiceIcon } from "@/components/service-icon";
 export function ServicePricePanel({ service }: { service: Service }) {
   const p = servicePricing[service.slug];
   if (!p) return null;
-  const tint = serviceTints[service.slug] ?? "#8b9cff";
+  const tint = serviceTints[service.slug] ?? "var(--accent)";
   return (
     <div
       className="relative overflow-hidden rounded-3xl border bg-surface p-8 sm:p-10"
@@ -61,7 +61,7 @@ export function AllServicePrices({ services }: { services: Service[] }) {
       {services.map((s) => {
         const p = servicePricing[s.slug];
         if (!p) return null;
-        const tint = serviceTints[s.slug] ?? "#8b9cff";
+        const tint = serviceTints[s.slug] ?? "var(--accent)";
         return (
           <li key={s.slug}>
             <Link

@@ -124,15 +124,15 @@ export function CircuitVisual() {
     "M200 260 V340",
   ];
   const leds = [
-    [50, 100, "#5eead4"],
-    [60, 200, "#fcd34d"],
-    [50, 300, "#f0abfc"],
-    [350, 100, "#7dd3fc"],
-    [340, 200, "#86efac"],
-    [350, 300, "#8b9cff"],
-    [180, 60, "#fdba74"],
-    [280, 50, "#5eead4"],
-    [200, 340, "#c4b5fd"],
+    [50, 100, "var(--accent-2)"],
+    [60, 200, "var(--accent)"],
+    [50, 300, "var(--accent)"],
+    [350, 100, "var(--accent)"],
+    [340, 200, "var(--accent)"],
+    [350, 300, "var(--accent)"],
+    [180, 60, "var(--accent)"],
+    [280, 50, "var(--accent-2)"],
+    [200, 340, "var(--accent)"],
   ] as const;
   return (
     <svg {...svgProps}>
@@ -218,7 +218,7 @@ export function DashboardVisual() {
         <rect x="250" y="118" width="100" height="44" rx="8" fill="var(--surface-2)" />
         <rect className="sv-build" x="60" y="130" width="40" height="8" rx="3" fill="var(--accent)" />
         <rect className="sv-build" style={{ animationDelay: ".2s" }} x="160" y="130" width="50" height="8" rx="3" fill="var(--accent-2)" />
-        <rect className="sv-build" style={{ animationDelay: ".4s" }} x="260" y="130" width="60" height="8" rx="3" fill="#f0abfc" />
+        <rect className="sv-build" style={{ animationDelay: ".4s" }} x="260" y="130" width="60" height="8" rx="3" fill="var(--accent)" />
         {bars.map((h, i) => (
           <rect
             key={i}
@@ -253,11 +253,11 @@ export function AboutOrbitVisual() {
       <g className="hv-spin" style={{ transformOrigin: "200px 200px" }}>
         <circle cx="200" cy="200" r="160" stroke={line} strokeDasharray="1 8" />
         <circle cx="200" cy="40" r="7" fill="var(--accent-2)" filter="url(#ab-glow)" />
-        <circle cx="360" cy="200" r="5" fill="#fcd34d" />
+        <circle cx="360" cy="200" r="5" fill="var(--accent)" />
       </g>
       <g className="hv-spin-slow-rev" style={{ transformOrigin: "200px 200px" }}>
         <circle cx="200" cy="200" r="122" stroke={line} />
-        <circle cx="78" cy="200" r="6" fill="#f0abfc" filter="url(#ab-glow)" />
+        <circle cx="78" cy="200" r="6" fill="var(--accent)" filter="url(#ab-glow)" />
         <circle cx="200" cy="322" r="5" fill="var(--accent)" />
       </g>
       <path className="hero-enso" pathLength={1} d="M 262 118 A 90 90 0 1 0 284 168" stroke="url(#ab-g)" strokeWidth="14" strokeLinecap="round" filter="url(#ab-glow)" />
@@ -299,7 +299,7 @@ export function ProductsStackVisual() {
   const layers = [
     { y: 250, c: "var(--accent-2)", d: 0 },
     { y: 190, c: "var(--accent)", d: 0.25 },
-    { y: 130, c: "#f0abfc", d: 0.5 },
+    { y: 130, c: "var(--accent)", d: 0.5 },
   ];
   return (
     <svg {...svgProps}>

@@ -2,6 +2,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { JsonLd } from "@/components/json-ld";
 import { SpotlightTracker } from "@/components/effects";
+import { Cursor } from "@/components/cursor";
 import { organizationJsonLd } from "@/lib/seo";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
@@ -14,6 +15,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <Footer />
       <JsonLd data={organizationJsonLd()} />
       <SpotlightTracker />
+      <Cursor />
     </>
   );
 }

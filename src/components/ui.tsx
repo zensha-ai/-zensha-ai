@@ -10,8 +10,8 @@ type BtnVariant = "primary" | "secondary" | "ghost";
 const btnBase =
   "inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-colors duration-300 ease-[var(--ease-calm)] disabled:cursor-not-allowed disabled:opacity-50 min-h-11";
 const btnVariants: Record<BtnVariant, string> = {
-  primary: "shine bg-ink text-paper hover:bg-accent shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_8px_30px_-8px_var(--glow)]",
-  secondary: "border border-line-strong text-ink hover:border-ink hover:bg-surface",
+  primary: "magnetic shine bg-ink text-paper hover:bg-accent shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_8px_30px_-8px_var(--glow)]",
+  secondary: "magnetic border border-line-strong text-ink hover:border-ink hover:bg-surface",
   ghost: "text-ink underline-offset-4 hover:underline px-0",
 };
 
@@ -48,7 +48,7 @@ export function Section({
 }: { tone?: "paper" | "alt" | "ink" } & ComponentProps<"section">) {
   const tones = {
     paper: "",
-    alt: "bg-paper-2",
+    alt: "tone-cream",
     ink: "relative overflow-hidden border-y border-line bg-paper-2",
   };
   return (
@@ -75,7 +75,7 @@ export function SectionHeader({
   as?: "h1" | "h2";
 }) {
   return (
-    <div className="mb-12 grid gap-6 border-t border-line pt-6 md:grid-cols-12 md:gap-10">
+    <div className="reveal mb-12 grid gap-6 border-t border-line pt-6 md:grid-cols-12 md:gap-10">
       <p className="eyebrow md:col-span-3">
         {index && <span className="mr-3 text-accent">{index}</span>}
         {eyebrow}

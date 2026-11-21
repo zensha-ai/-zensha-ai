@@ -70,8 +70,13 @@ export function NetworkField({ className = "" }: { className?: string }) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const accent = [139, 156, 255];
-    const teal = [94, 234, 212];
+    const css = getComputedStyle(document.documentElement);
+    const rgb = (name: string, fallback: number[]) => {
+      const m = css.getPropertyValue(name).trim().match(/^#([0-9a-f]{6})$/i);
+      return m ? [0, 2, 4].map((i) => parseInt(m[1].slice(i, i + 2), 16)) : fallback;
+    };
+    const accent = rgb("--accent", [255, 74, 28]);
+    const teal = rgb("--accent-2", [255, 176, 143]);
 
     let w = 0;
     let h = 0;

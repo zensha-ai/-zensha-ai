@@ -50,7 +50,7 @@ const map: Record<string, LucideIcon> = {
 };
 
 /** Rounded, softly tinted icon tile — the site's "emoji" treatment. */
-export function IconTile({ name, tint = "#8b9cff", size = "md" }: { name: string; tint?: string; size?: "sm" | "md" }) {
+export function IconTile({ name, tint = "var(--accent)", size = "md" }: { name: string; tint?: string; size?: "sm" | "md" }) {
   const Icon = map[name] ?? Sparkles;
   const dims = size === "sm" ? "size-9 rounded-xl" : "size-12 rounded-2xl";
   return (
@@ -63,4 +63,4 @@ export function IconTile({ name, tint = "#8b9cff", size = "md" }: { name: string
   );
 }
 
-export const tileTints = ["#8b9cff", "#5eead4", "#f0abfc", "#fcd34d", "#7dd3fc", "#86efac", "#fdba74", "#c4b5fd"];
+export const tileTints = ["var(--accent)", "var(--accent-2)", "var(--accent)", "var(--accent)", "var(--accent)", "var(--accent)", "var(--accent)", "var(--accent)"];

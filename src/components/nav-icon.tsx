@@ -57,7 +57,7 @@ const icons: Record<string, LucideIcon> = {
 };
 
 /** Small tinted icon tile used in navigation menus. */
-export function NavIcon({ name, tint = "#8b9cff" }: { name?: string; tint?: string }) {
+export function NavIcon({ name, tint = "var(--accent)" }: { name?: string; tint?: string }) {
   const Icon = (name && icons[name]) || Sparkles;
   return (
     <span

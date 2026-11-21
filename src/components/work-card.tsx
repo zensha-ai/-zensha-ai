@@ -6,7 +6,7 @@ import { TrafficVisual } from "@/components/work-visual";
 import { cx } from "@/components/ui";
 
 const visuals: Record<string, { tint: string; Visual: (p: { className?: string }) => React.ReactNode }> = {
-  "trafenix-ai": { tint: "#7dd3fc", Visual: TrafficVisual },
+  "trafenix-ai": { tint: "var(--accent)", Visual: TrafficVisual },
 };
 
 /**
@@ -15,7 +15,7 @@ const visuals: Record<string, { tint: string; Visual: (p: { className?: string }
  */
 export function WorkCard({ item, featured = false }: { item: WorkItem; featured?: boolean }) {
   const v = visuals[item.slug];
-  const tint = v?.tint ?? "#8b9cff";
+  const tint = v?.tint ?? "var(--accent)";
   const href = `/our-work/${item.slug}`;
   return (
     <div className="svc-float h-full" style={{ "--tint": tint } as CSSProperties}>

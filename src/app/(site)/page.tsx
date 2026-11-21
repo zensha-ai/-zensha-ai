@@ -27,10 +27,10 @@ const studentCategories = [
 ];
 
 const whyIcons = [
-  { Icon: MessagesSquare, tint: "#8b9cff" },
-  { Icon: Target, tint: "#5eead4" },
-  { Icon: PenTool, tint: "#f0abfc" },
-  { Icon: ListChecks, tint: "#fcd34d" },
+  { Icon: MessagesSquare, tint: "var(--accent)" },
+  { Icon: Target, tint: "var(--accent-2)" },
+  { Icon: PenTool, tint: "var(--accent)" },
+  { Icon: ListChecks, tint: "var(--accent)" },
 ];
 
 export default async function HomePage() {

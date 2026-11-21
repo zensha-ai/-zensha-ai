@@ -6,16 +6,16 @@ import type { CSSProperties } from "react";
  * Decorative; static under reduced motion.
  */
 export function TrafficVisual({ className = "" }: { className?: string }) {
-  const tint = "#7dd3fc";
+  const tint = "var(--accent)";
   const road = "var(--surface-2)";
   const lane = "var(--line-strong)";
   const cars: { path: string; delay: number; color: string }[] = [
     { path: "M -20 172 L 420 172", delay: 0, color: tint },
-    { path: "M 420 148 L -20 148", delay: 1.2, color: "#5eead4" },
-    { path: "M 188 -20 L 188 340", delay: 0.6, color: "#c4b5fd" },
+    { path: "M 420 148 L -20 148", delay: 1.2, color: "var(--accent-2)" },
+    { path: "M 188 -20 L 188 340", delay: 0.6, color: "var(--accent)" },
     { path: "M 212 340 L 212 -20", delay: 1.8, color: tint },
-    { path: "M -20 172 L 180 172 Q 212 172 212 140 L 212 -20", delay: 2.6, color: "#fdba74" },
-    { path: "M 420 148 L 220 148 Q 188 148 188 180 L 188 340", delay: 3.4, color: "#5eead4" },
+    { path: "M -20 172 L 180 172 Q 212 172 212 140 L 212 -20", delay: 2.6, color: "var(--accent)" },
+    { path: "M 420 148 L 220 148 Q 188 148 188 180 L 188 340", delay: 3.4, color: "var(--accent-2)" },
   ];
   return (
     <svg viewBox="0 0 400 320" className={`sv ${className}`} style={{ "--tint": tint, overflow: "hidden" } as CSSProperties} aria-hidden fill="none">

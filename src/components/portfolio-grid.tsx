@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { TrafficVisual } from "@/components/work-visual";
 import { ServiceVisual } from "@/components/service-visual";
@@ -53,8 +53,6 @@ function span(i: number, total: number) {
 
 export function PortfolioGrid({ entries }: { entries: PortfolioEntry[] }) {
   const [filter, setFilter] = useState<"All" | PortfolioCategory>("All");
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLUListElement>(null);
 
   const counts = Object.fromEntries(
     portfolioCategories.map((c) => [
@@ -71,29 +69,6 @@ export function PortfolioGrid({ entries }: { entries: PortfolioEntry[] }) {
   const shown =
     filter === "All" ? entries : entries.filter((e) => e.category === filter);
 
-  // "VIEW" bubble that follows the pointer over cards (fine pointers only).
-  useEffect(() => {
-    const grid = gridRef.current;
-    const dot = cursorRef.current;
-    if (!grid || !dot || !window.matchMedia("(pointer: fine)").matches) return;
-    let raf = 0;
-    const move = (ev: PointerEvent) => {
-      const card = (ev.target as HTMLElement).closest("[data-card]");
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        dot.style.transform = `translate3d(${ev.clientX}px, ${ev.clientY}px, 0)`;
-        dot.dataset.on = card ? "true" : "false";
-      });
-    };
-    const leave = () => (dot.dataset.on = "false");
-    grid.addEventListener("pointermove", move);
-    grid.addEventListener("pointerleave", leave);
-    return () => {
-      cancelAnimationFrame(raf);
-      grid.removeEventListener("pointermove", move);
-      grid.removeEventListener("pointerleave", leave);
-    };
-  }, []);
 
   return (
     <div>
@@ -129,7 +104,7 @@ export function PortfolioGrid({ entries }: { entries: PortfolioEntry[] }) {
       </div>
 
       <ul
-        ref={gridRef}
+       
         className="pf-grid mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-12"
       >
         {shown.map((e, i) => (
@@ -227,10 +202,6 @@ export function PortfolioGrid({ entries }: { entries: PortfolioEntry[] }) {
           </li>
         ))}
       </ul>
-
-      <div ref={cursorRef} aria-hidden data-on="false" className="pf-cursor">
-        <span>View</span>
-      </div>
     </div>
   );
 }

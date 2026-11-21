@@ -2,17 +2,17 @@ import type { CSSProperties } from "react";
 
 /** Per-service tint used by the card glow, icon and illustration. */
 export const serviceTints: Record<string, string> = {
-  "website-design-development": "#8b9cff",
-  "web-application-development": "#7dd3fc",
-  "mobile-application-development": "#c4b5fd",
-  "ai-development-intelligent-solutions": "#f0abfc",
-  "custom-software-development": "#fcd34d",
-  "business-process-automation": "#5eead4",
-  "api-development-integrations": "#93c5fd",
-  "whatsapp-instagram-automation": "#86efac",
-  "digital-marketing-seo": "#fdba74",
-  "ai-chatbot-development": "#a5b4fc",
-  "data-engineering-analytics": "#5eead4",
+  "website-design-development": "var(--accent)",
+  "web-application-development": "var(--accent)",
+  "mobile-application-development": "var(--accent)",
+  "ai-development-intelligent-solutions": "var(--accent)",
+  "custom-software-development": "var(--accent)",
+  "business-process-automation": "var(--accent-2)",
+  "api-development-integrations": "var(--accent)",
+  "whatsapp-instagram-automation": "var(--accent)",
+  "digital-marketing-seo": "var(--accent)",
+  "ai-chatbot-development": "var(--accent)",
+  "data-engineering-analytics": "var(--accent-2)",
 };
 
 /**
@@ -20,7 +20,7 @@ export const serviceTints: Record<string, string> = {
  * Static when reduced motion is requested; decorative (aria-hidden).
  */
 export function ServiceVisual({ slug, className = "" }: { slug: string; className?: string }) {
-  const tint = serviceTints[slug] ?? "#8b9cff";
+  const tint = serviceTints[slug] ?? "var(--accent)";
   const style = { "--tint": tint } as CSSProperties;
   const common = { viewBox: "0 0 200 120", className: `sv ${className}`, style, "aria-hidden": true, fill: "none" } as const;
   const line = "var(--line-strong)";
