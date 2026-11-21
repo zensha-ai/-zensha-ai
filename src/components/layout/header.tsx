@@ -98,14 +98,14 @@ export function Header() {
           <Link href="/cart" aria-label={`Cart, ${cartCount} item${cartCount === 1 ? "" : "s"}`} className="relative inline-flex rounded-full p-2.5 text-ink-2 hover:bg-paper-2 hover:text-ink">
             <ShoppingBag className="size-[1.15rem]" aria-hidden />
             {cartCount > 0 && (
-              <span className="absolute right-1 top-1 grid size-4 place-items-center rounded-full bg-accent font-mono text-[0.6rem] text-paper">
+              <span className="absolute right-1 top-1 grid size-4 place-items-center rounded-full bg-accent font-mono text-[0.6rem] text-on-accent">
                 {cartCount}
               </span>
             )}
           </Link>
           <Link
             href="/contact"
-            className="hidden min-h-10 items-center rounded-full bg-ink px-4 py-2 text-sm font-medium text-paper transition-colors hover:bg-accent sm:inline-flex"
+            className="hidden min-h-10 items-center rounded-full bg-ink px-4 py-2 text-sm font-medium text-paper transition-colors hover:bg-accent hover:text-on-accent sm:inline-flex"
           >
             Let&rsquo;s Talk
           </Link>

@@ -22,9 +22,16 @@ export const viewport: Viewport = {
   colorScheme: "dark",
 };
 
+const palettes = ["red", "violet", "lime", "blue", "amber"];
+const paletteScript = `try{var k="zensha-palette",s=sessionStorage,p=s.getItem(k),l=${JSON.stringify(palettes)};if(l.indexOf(p)<0){p=l[Math.floor(Math.random()*l.length)];s.setItem(k,p)}document.documentElement.dataset.palette=p}catch(e){}`;
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" className={`${body.variable} ${display.variable} ${mono.variable}`}>
+    <html lang="en-IN" className={`${body.variable} ${display.variable} ${mono.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Picks one accent palette per visit (kept for the browsing session) before first paint. */}
+        <script dangerouslySetInnerHTML={{ __html: paletteScript }} />
+      </head>
       <body className="min-h-dvh">{children}</body>
     </html>
   );

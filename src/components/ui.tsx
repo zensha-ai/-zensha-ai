@@ -10,7 +10,7 @@ type BtnVariant = "primary" | "secondary" | "ghost";
 const btnBase =
   "inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-colors duration-300 ease-[var(--ease-calm)] disabled:cursor-not-allowed disabled:opacity-50 min-h-11";
 const btnVariants: Record<BtnVariant, string> = {
-  primary: "magnetic shine bg-ink text-paper hover:bg-accent shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_8px_30px_-8px_var(--glow)]",
+  primary: "magnetic shine bg-ink text-paper hover:bg-accent hover:text-on-accent shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_8px_30px_-8px_var(--glow)]",
   secondary: "magnetic border border-line-strong text-ink hover:border-ink hover:bg-surface",
   ghost: "text-ink underline-offset-4 hover:underline px-0",
 };

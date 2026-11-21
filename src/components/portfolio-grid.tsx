@@ -86,7 +86,7 @@ export function PortfolioGrid({ entries }: { entries: PortfolioEntry[] }) {
             className={cx(
               "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-colors",
               filter === t.label
-                ? "border-accent bg-accent text-paper"
+                ? "border-accent bg-accent text-on-accent"
                 : "border-line-strong text-ink-2 hover:border-ink hover:text-ink",
             )}
           >

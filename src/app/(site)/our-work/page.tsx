@@ -167,7 +167,7 @@ export default async function OurWorkPage() {
             </div>
             <Link
               href="/contact"
-              className="relative inline-flex shrink-0 items-center gap-2 rounded-full bg-accent px-6 py-3 font-medium text-paper transition-transform hover:-translate-y-0.5"
+              className="relative inline-flex shrink-0 items-center gap-2 rounded-full bg-accent px-6 py-3 font-medium text-on-accent transition-transform hover:-translate-y-0.5"
             >
               Start a Project Like This{" "}
               <ArrowUpRight aria-hidden className="size-4" />
