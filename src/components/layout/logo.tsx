@@ -8,7 +8,7 @@ export function Logo({ className = "" }: { className?: string }) {
       <svg viewBox="0 0 24 24" aria-hidden className="size-7 shrink-0 transition-transform duration-500 group-hover:rotate-[-20deg]">
         <defs>
           <linearGradient id="zensha-logo-grad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#f3eee4" />
+            <stop offset="0" stopColor="#fffbd4" />
             <stop offset="0.55" stopColor="var(--accent)" />
             <stop offset="1" stopColor="var(--accent-2)" />
           </linearGradient>

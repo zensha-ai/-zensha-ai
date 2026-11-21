@@ -138,7 +138,7 @@ export function PortfolioGrid({ entries }: { entries: PortfolioEntry[] }) {
                     className="grid-paper absolute inset-0 opacity-40"
                   />
                   <div aria-hidden className="pf-glow absolute inset-0" />
-                  <div className="relative flex w-full justify-center">
+                  <div className="reveal-zoom relative flex w-full justify-center">
                     <Visual entry={e} />
                   </div>
                 </div>

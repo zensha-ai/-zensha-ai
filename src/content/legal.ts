@@ -113,6 +113,8 @@ Some projects include open-source libraries under their own licenses, listed in 
 
 ## Local storage
 - **Cart** — the projects you add to your cart are stored in your browser until checkout.
+- **Cookie choice** — whether you chose Accept All or Reject Optional in the cookie banner, so we don't ask again.
+- **Opening animation** — a note for this browser tab that the loader has already played.
 
 ## Analytics and tracking
 No analytics or advertising trackers are currently installed. If that changes, this notice will be updated before they are enabled.`,

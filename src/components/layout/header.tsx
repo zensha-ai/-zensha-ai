@@ -105,7 +105,7 @@ export function Header() {
           </Link>
           <Link
             href="/contact"
-            className="hidden min-h-10 items-center rounded-full bg-ink px-4 py-2 text-sm font-medium text-paper transition-colors hover:bg-accent hover:text-on-accent sm:inline-flex"
+            className="hidden min-h-10 items-center magnetic rounded-full bg-accent px-4 py-2 text-sm font-semibold text-on-accent transition-colors hover:bg-[#a90e02] sm:inline-flex"
           >
             Let&rsquo;s Talk
           </Link>

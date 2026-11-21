@@ -18,19 +18,18 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0b",
+  themeColor: "#000000",
   colorScheme: "dark",
 };
 
-const palettes = ["red", "violet", "lime", "blue", "amber"];
-const paletteScript = `try{var k="zensha-palette",s=sessionStorage,p=s.getItem(k),l=${JSON.stringify(palettes)};if(l.indexOf(p)<0){p=l[Math.floor(Math.random()*l.length)];s.setItem(k,p)}document.documentElement.dataset.palette=p}catch(e){}`;
+// Plays the opening loader once per browsing session; set before first paint.
+const introScript = `try{var k="zensha-intro";if(sessionStorage.getItem(k)){document.documentElement.dataset.intro="seen"}else{sessionStorage.setItem(k,"1");document.documentElement.dataset.intro="play"}}catch(e){document.documentElement.dataset.intro="seen"}`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-IN" className={`${body.variable} ${display.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
-        {/* Picks one accent palette per visit (kept for the browsing session) before first paint. */}
-        <script dangerouslySetInnerHTML={{ __html: paletteScript }} />
+        <script dangerouslySetInnerHTML={{ __html: introScript }} />
       </head>
       <body className="min-h-dvh">{children}</body>
     </html>
