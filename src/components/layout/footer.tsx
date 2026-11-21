@@ -32,7 +32,10 @@ export function Footer() {
           ))}
         </nav>
       </div>
-      <div className="border-t border-line">
+      <div aria-hidden className="container-z overflow-hidden">
+        <p className="footer-wordmark font-display -mb-[0.12em] text-center">{brand.brandName}</p>
+      </div>
+      <div className="relative border-t border-line">
         <div className="container-z flex flex-col gap-3 py-6 text-xs text-muted md:flex-row md:items-center md:justify-between">
           <p className="flex flex-wrap items-center gap-2">
             {contact.email ? <a href={`mailto:${contact.email}`} className="hover:text-ink">{contact.email}</a> : <Placeholder>[EMAIL]</Placeholder>}
