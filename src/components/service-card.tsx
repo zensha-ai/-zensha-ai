@@ -1,99 +1,87 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { groupOf } from "@/content/service-groups";
 import type { Service } from "@/content/types";
-import { ServiceIcon } from "@/components/service-icon";
-import { ServiceVisual, serviceTints } from "@/components/service-visual";
+import { ServiceVisual } from "@/components/service-visual";
 import { cx } from "@/components/ui";
 import { priceLabel } from "@/content/service-pricing";
 
-/** Bento spans on a 6-column grid: 3+3 / 2+2+2 / 3+3 / 2+2+2 / 6 (featured). */
-const lgSpan = (i: number, total: number) => {
-  if (i === total - 1 && total % 5 === 1) return "lg:col-span-6";
-  return [0, 1, 5, 6].includes(i % 10) ? "lg:col-span-3" : "lg:col-span-2";
-};
+/* ── Reference-style service cards (Services page + service pages) ─────── */
 
-export function ServiceBento({ services }: { services: Service[] }) {
-  // Data Engineering is the founder's core strength — feature it last, full width.
-  const featuredSlug = "data-engineering-analytics";
-  const ordered = [...services.filter((s) => s.slug !== featuredSlug), ...services.filter((s) => s.slug === featuredSlug)];
+/** Two-column grid of dark cards on cream; the odd last card spans full width. */
+export function ServiceGrid({ services }: { services: Service[] }) {
   return (
-    <ul className="grid gap-x-5 gap-y-6 md:grid-cols-2 lg:grid-cols-6">
-      {ordered.map((s, i) => {
-        const featured = s.slug === featuredSlug && i === ordered.length - 1;
-        const wide = featured || lgSpan(i, ordered.length) === "lg:col-span-3";
-        return (
-          <li key={s.slug} className={cx(lgSpan(i, ordered.length), featured && "md:col-span-2", "pb-4")}>
-            <ServiceCard service={s} wide={wide} featured={featured} bobDelay={(i % 5) * -1.2} />
-          </li>
-        );
-      })}
+    <ul className="grid gap-6 md:grid-cols-2">
+      {services.map((s, i) => (
+        <li
+          key={s.slug}
+          className={cx("reveal", services.length % 2 === 1 && i === services.length - 1 && "md:col-span-2")}
+          style={{ "--reveal-delay": `${(i % 2) * 0.08}s` } as CSSProperties}
+        >
+          <ServiceTile service={s} wide={services.length % 2 === 1 && i === services.length - 1} />
+        </li>
+      ))}
     </ul>
   );
 }
 
-export function ServiceCard({
-  service: s,
-  wide = false,
-  featured = false,
-  bobDelay = 0,
-}: {
-  service: Service;
-  wide?: boolean;
-  featured?: boolean;
-  bobDelay?: number;
-}) {
-  const tint = serviceTints[s.slug] ?? "var(--accent)";
+export function ServiceTile({ service: s, wide = false }: { service: Service; wide?: boolean }) {
+  const group = groupOf(s.slug);
+  const shown = s.capabilities.slice(0, 3);
+  const more = s.capabilities.length - shown.length;
   return (
-    <div className="svc-float h-full" style={{ "--tint": tint, "--bob-delay": `${bobDelay}s` } as CSSProperties}>
-      <div aria-hidden className="svc-floor" />
     <Link
       href={`/services/${s.slug}`}
-      className={cx(
-        "svc-card tilt spotlight group relative flex h-full overflow-hidden rounded-2xl border border-line bg-surface",
-        featured ? "flex-col md:flex-row md:items-center" : "flex-col",
-      )}
+      className={cx("svc-card xtile tilt spotlight group relative flex h-full overflow-hidden rounded-2xl border border-line bg-surface", wide ? "flex-col lg:flex-row" : "flex-col")}
     >
-      <span aria-hidden className="svc-border" />
-      <span aria-hidden className="svc-glare" />
-      <div aria-hidden className="svc-glow pointer-events-none absolute inset-0" />
-      <div className={cx("relative flex items-center justify-center px-8 pt-8", featured ? "md:order-2 md:w-1/2 md:p-10" : wide ? "h-48" : "h-40")}>
-        <ServiceVisual slug={s.slug} className={featured ? "max-w-md" : wide ? "max-w-[18rem]" : "max-w-[14rem]"} />
-      </div>
-      <div className={cx("relative flex flex-1 flex-col p-8", featured && "md:w-1/2 md:p-12")}>
-        <div className="flex items-center gap-3">
-          <span className="grid size-9 place-items-center rounded-full border border-line-strong" style={{ color: tint }}>
-            <ServiceIcon name={s.icon} className="size-4" />
-          </span>
-          <span className="font-mono text-xs text-muted">{s.number}</span>
-          {priceLabel(s.slug) && (
-            <span className="ml-auto rounded-full border px-2.5 py-0.5 text-xs font-medium" style={{ borderColor: `color-mix(in oklab, ${tint} 45%, transparent)`, color: tint, background: `color-mix(in oklab, ${tint} 10%, transparent)` }}>
-              {priceLabel(s.slug)}
-            </span>
-          )}
-          {featured && (
-            <span className="rounded-full border px-2.5 py-0.5 font-mono text-[0.65rem] uppercase tracking-[0.12em]" style={{ borderColor: tint, color: tint }}>
-              Founder&rsquo;s core expertise
-            </span>
-          )}
-        </div>
-        <h2 className={cx("mt-6", featured ? "display-2" : "display-3")}>{s.title}</h2>
-        <p className={cx("mt-3 flex-1 text-ink-2", featured && "text-lg")}>{featured ? s.intro : s.short}</p>
-        {featured && (
-          <div className="mt-6 flex flex-wrap gap-2">
-            {s.technologies.slice(0, 8).map((t) => (
-              <span key={t} className="rounded-md border border-line-strong px-2 py-1 font-mono text-xs text-ink-2">
-                {t}
-              </span>
-            ))}
-          </div>
-        )}
-        <span className="mt-8 inline-flex items-center gap-1.5 text-sm font-medium transition-colors" style={{ color: tint }}>
-          Learn more
-          <ArrowUpRight aria-hidden className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+      <div className={cx("xtile-media relative grid place-items-center overflow-hidden border-line", wide ? "h-64 border-b lg:order-2 lg:h-auto lg:w-1/2 lg:border-b-0 lg:border-l" : "h-64 border-b")}>
+        <div aria-hidden className="grid-paper absolute inset-0 opacity-50" />
+        <div aria-hidden className="xtile-orb" />
+        <ServiceVisual slug={s.slug} className="xtile-visual relative max-w-[17rem]" />
+        <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-line-strong bg-paper/80 px-3 py-1 font-mono text-[0.65rem] text-ink-2 backdrop-blur">
+          <span aria-hidden className="size-1.5 rounded-full bg-accent" />
+          {s.technologies.slice(0, 2).join(" · ")}
         </span>
+        {priceLabel(s.slug) && (
+          <span className="absolute right-4 top-4 rounded-full bg-accent px-3 py-1 font-mono text-[0.65rem] text-on-accent">{priceLabel(s.slug)}</span>
+        )}
+      </div>
+      <div className={cx("relative flex flex-1 flex-col p-7 sm:p-8", wide && "lg:w-1/2 lg:p-12")}>
+        <div className="flex items-center justify-between font-mono text-xs">
+          <span className="text-accent">{s.number}</span>
+          <span className="text-muted">{group.label}</span>
+        </div>
+        <h3 className="display-3 mt-3">{s.title}</h3>
+        <p className="mt-3 flex-1 text-ink-2">{wide ? s.intro : s.short}</p>
+        <div className="mt-6 flex flex-wrap gap-1.5">
+          {shown.map((c) => (
+            <span key={c} className="rounded-full border border-line-strong px-2.5 py-1 text-[0.7rem] text-ink-2">
+              {c}
+            </span>
+          ))}
+          {more > 0 && <span className="rounded-full border border-accent/50 px-2.5 py-1 text-[0.7rem] text-accent">+{more}</span>}
+        </div>
+        <div className="mt-8 flex items-center justify-between border-t border-line pt-5">
+          <span className="text-sm font-semibold">View details</span>
+          <span className="grid size-10 place-items-center rounded-full border border-line-strong transition-colors duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-on-accent">
+            <ArrowRight aria-hidden className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+          </span>
+        </div>
       </div>
     </Link>
-    </div>
+  );
+}
+
+/** Small "explore in depth" link card. */
+export function ServiceLinkCard({ service: s }: { service: Service }) {
+  return (
+    <Link href={`/services/${s.slug}`} className="xlink group flex h-full flex-col justify-between gap-6 rounded-xl border border-line bg-surface p-5">
+      <span className="flex items-center justify-between font-mono text-xs text-muted">
+        {groupOf(s.slug).label}
+        <ArrowUpRight aria-hidden className="size-4 text-accent transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+      </span>
+      <span className="font-semibold leading-snug">{s.title}</span>
+    </Link>
   );
 }

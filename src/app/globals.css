@@ -676,3 +676,119 @@ html.has-cursor select { cursor: pointer !important; }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: hidden; }
+
+/* ── Services: reference-style tiles, pinned showcase, hub, steps ──── */
+.xtile, .xinc { --tint: var(--accent); }
+.xtile:hover, .xinc:hover {
+  --lift: -8px;
+  border-color: color-mix(in oklab, var(--accent) 60%, var(--line-strong));
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--accent) 40%, transparent), 0 40px 80px -30px color-mix(in oklab, var(--accent) 70%, transparent);
+}
+.xtile-media { background: radial-gradient(70% 80% at 50% 100%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 70%), var(--paper); }
+.xtile-orb {
+  position: absolute; width: 14rem; height: 14rem; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--accent) 38%, transparent), transparent);
+  filter: blur(8px); opacity: 0.7; transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s;
+}
+.xaside .xtile-orb { right: -5rem; top: -6rem; }
+.xtile-visual { transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+.xtile:hover .xtile-visual { transform: scale(1.07) translateY(-4px); }
+.xtile:hover .xtile-orb { transform: scale(1.25); opacity: 1; }
+
+.xlink { transition: border-color 0.3s, background-color 0.3s, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s; }
+.xlink:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 24px 50px -28px var(--accent); }
+
+.xstep { transition: border-color 0.3s, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+.xstep:hover { border-color: color-mix(in oklab, var(--accent) 60%, var(--line-strong)); transform: translateY(-4px); }
+.xstep-num {
+  position: absolute; right: 1rem; top: -0.6rem; font-family: var(--font-display), sans-serif; font-weight: 800;
+  font-size: 6.5rem; line-height: 1; letter-spacing: -0.06em; color: transparent;
+  -webkit-text-stroke: 1px var(--line-strong); transition: -webkit-text-stroke-color 0.4s; pointer-events: none;
+}
+.xstep:hover .xstep-num { -webkit-text-stroke-color: color-mix(in oklab, var(--accent) 60%, transparent); }
+.xstep-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); box-shadow: 0 0 10px var(--accent); }
+.xstep:hover .xstep-bar { transform: scaleX(1); }
+
+/* Pinned horizontal showcase (components/services-showcase.tsx) */
+.hs-sticky { position: relative; overflow: hidden; }
+.hs-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(45% 55% at 72% 62%, color-mix(in oklab, var(--accent) 24%, transparent), transparent 70%); }
+.hs-track { display: flex; flex-direction: column; }
+.hs-slide { position: relative; }
+.hs-num {
+  position: absolute; right: 1.5rem; bottom: -1.5rem; z-index: 0; pointer-events: none; user-select: none;
+  font-family: var(--font-display), sans-serif; font-weight: 800; font-size: clamp(9rem, 22vw, 22rem); line-height: 0.8; letter-spacing: -0.06em;
+  color: transparent; -webkit-text-stroke: 1px var(--line-strong);
+}
+.hs-bar { display: block; height: 100%; background: var(--accent); transform-origin: left; transition: transform 0.25s; box-shadow: 0 0 8px var(--accent); }
+.hs-screen {
+  position: relative; overflow: hidden; border-radius: 1.1rem; border: 1px solid var(--line-strong);
+  background: linear-gradient(180deg, var(--surface), var(--paper));
+  box-shadow: 0 50px 100px -40px color-mix(in oklab, var(--accent) 55%, transparent), 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+.hs-orb {
+  position: absolute; width: 15rem; height: 15rem; border-radius: 50%; opacity: 0.55;
+  background: radial-gradient(circle at 35% 30%, #ff7a5c, var(--accent) 38%, var(--accent-2) 68%, #1a0200 100%);
+  box-shadow: 0 0 90px -10px var(--accent);
+}
+.hs-chip {
+  position: absolute; left: -0.75rem; bottom: -1rem; display: inline-flex; align-items: center; gap: 0.5rem;
+  border-radius: 999px; border: 1px solid var(--line-strong); background: color-mix(in oklab, var(--paper) 85%, transparent);
+  padding: 0.4rem 0.85rem; font-family: var(--font-mono), monospace; font-size: 0.68rem; color: var(--ink-2); backdrop-filter: blur(8px);
+}
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .hs-outer { height: calc(var(--n) * 100vh); }
+  .hs-sticky { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; }
+  .hs-viewport { position: relative; flex: 1; overflow: hidden; container-type: inline-size; }
+  .hs-track { flex-direction: row; height: 100%; width: max-content; will-change: transform; }
+  .hs-slide { width: 100cqw; height: 100%; }
+  .hs-visual { transform: translateX(calc((var(--i) - var(--pos, 0)) * 12%)) rotate(calc((var(--i) - var(--pos, 0)) * 3deg)); }
+  .hs-num { transform: translateX(calc((var(--i) - var(--pos, 0)) * -40%)); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hs-orb { animation: hs-breathe 5s ease-in-out infinite alternate; }
+}
+@keyframes hs-breathe { from { transform: scale(0.9); opacity: 0.45; } to { transform: scale(1.08); opacity: 0.7; } }
+
+/* Hub diagram (components/services-hub.tsx) */
+.hub { position: relative; display: grid; gap: 1.25rem; }
+.hub-lines { display: none; }
+.hub-core { position: relative; display: grid; place-items: center; height: 19rem; }
+.hub-orb {
+  position: relative; z-index: 1; width: 12rem; height: 12rem; border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #fffbd4;
+  background: radial-gradient(circle at 50% 30%, #ef4a2f, var(--accent) 35%, var(--accent-2) 65%, #1a0200 100%);
+  box-shadow: 0 0 100px -10px var(--accent), inset 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 -20px 40px rgba(0, 0, 0, 0.35);
+}
+.hub-ring { position: absolute; border-radius: 50%; border: 1px solid color-mix(in oklab, var(--accent) 45%, transparent); pointer-events: none; }
+.hub-ring-1 { width: 15rem; height: 15rem; }
+.hub-ring-2 { width: 19rem; height: 19rem; border-style: dashed; opacity: 0.6; }
+.hub-ring-3 { width: 25rem; height: 25rem; opacity: 0.22; }
+.hub-card {
+  position: relative; z-index: 1; display: block; border-radius: 1rem; border: 1px solid var(--line-strong); padding: 1.5rem;
+  background: color-mix(in oklab, var(--surface) 88%, transparent); backdrop-filter: blur(8px);
+  transition: border-color 0.3s, box-shadow 0.4s, translate 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hub-card:hover { border-color: var(--accent); translate: 0 -4px; box-shadow: 0 24px 60px -28px var(--accent); }
+.hub-node { display: none; position: absolute; top: 50%; width: 9px; height: 9px; margin-top: -4.5px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+.hub-flow { stroke-dasharray: 3 17; }
+@media (min-width: 1024px) {
+  .hub { grid-template-columns: 1fr 1.15fr 1fr; grid-template-rows: auto auto; gap: 5rem 3rem; align-items: center; }
+  .hub-lines { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hub-core { grid-column: 2; grid-row: 1 / span 2; height: auto; }
+  .hub-tl { grid-column: 1; grid-row: 1; }
+  .hub-bl { grid-column: 1; grid-row: 2; }
+  .hub-tr { grid-column: 3; grid-row: 1; }
+  .hub-br { grid-column: 3; grid-row: 2; }
+  .hub-node { display: block; }
+  .hub-tl .hub-node, .hub-bl .hub-node { right: -5px; }
+  .hub-tr .hub-node, .hub-br .hub-node { left: -5px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hub-flow { animation: hub-flow 1.2s linear infinite; }
+  .hub-ring-1 { animation: hub-pulse 3.2s ease-in-out infinite; }
+  .hub-ring-2 { animation: sv-spin 40s linear infinite; }
+  .hub-ring-3 { animation: hub-pulse 4.5s ease-in-out infinite reverse; }
+  .hub-node { animation: pulse 2.4s ease-out infinite; }
+}
+@keyframes hub-flow { to { stroke-dashoffset: -20; } }
+@keyframes hub-pulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.06); opacity: 1; } }
