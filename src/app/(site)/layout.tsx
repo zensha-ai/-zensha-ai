@@ -15,8 +15,8 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
     <>
       <Intro />
       <div aria-hidden className="scroll-progress" />
-      <OfferTicker />
       <Header />
+      <OfferTicker />
       <main id="main" tabIndex={-1} className="outline-none">
         {children}
       </main>
