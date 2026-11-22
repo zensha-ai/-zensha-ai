@@ -12,7 +12,8 @@ import { ServiceIcon } from "@/components/service-icon";
 import { serviceTints } from "@/components/service-visual";
 import { Badge, ButtonLink, CtaBand, Section, SectionHeader, SplitWords } from "@/components/ui";
 import { PricingCards } from "@/components/pricing";
-import { priceLabel } from "@/content/service-pricing";
+import { priceLabel, servicePricing } from "@/content/service-pricing";
+import { WasPrice } from "@/components/offer";
 import { pageMetadata } from "@/lib/seo";
 
 export const revalidate = 300;
@@ -134,6 +135,7 @@ export default async function HomePage() {
                 </span>
                 <span className="relative hidden text-sm text-muted transition-colors group-hover:text-ink-2 sm:block">{s.short}</span>
                 <span className="relative hidden justify-self-end whitespace-nowrap rounded-full border border-line-strong px-3 py-1 text-xs text-ink-2 transition-colors group-hover:border-[var(--tint)] group-hover:text-[var(--tint)] sm:inline-block">
+                  <WasPrice price={servicePricing[s.slug]?.from ?? ""} className="mr-1.5" />
                   {priceLabel(s.slug)}
                 </span>
                 <ArrowUpRight aria-hidden className="relative size-4 text-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--tint)]" />

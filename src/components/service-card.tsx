@@ -5,7 +5,8 @@ import { groupOf } from "@/content/service-groups";
 import type { Service } from "@/content/types";
 import { ServiceVisual } from "@/components/service-visual";
 import { cx } from "@/components/ui";
-import { priceLabel } from "@/content/service-pricing";
+import { priceLabel, servicePricing } from "@/content/service-pricing";
+import { OfferTag, WasPrice } from "@/components/offer";
 
 /* ── Reference-style service cards (Services page + service pages) ─────── */
 
@@ -44,7 +45,13 @@ export function ServiceTile({ service: s, wide = false }: { service: Service; wi
           {s.technologies.slice(0, 2).join(" · ")}
         </span>
         {priceLabel(s.slug) && (
-          <span data-countup className="absolute right-4 top-4 rounded-full bg-accent px-3 py-1 font-mono text-[0.65rem] text-on-accent">{priceLabel(s.slug)}</span>
+          <span className="absolute right-4 top-4 flex items-center gap-1.5">
+            <OfferTag className="bg-[#fffbd4] text-black" />
+            <span className="rounded-full bg-accent px-3 py-1 font-mono text-[0.65rem] text-on-accent">
+              <WasPrice price={servicePricing[s.slug].from} className="mr-1.5 text-on-accent/70 decoration-current" />
+              <span data-countup>{priceLabel(s.slug)}</span>
+            </span>
+          </span>
         )}
         <span aria-hidden className="xtile-toast">
           <span className="live-dot size-1.5 rounded-full bg-accent" />

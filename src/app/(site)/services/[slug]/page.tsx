@@ -13,7 +13,8 @@ import { ServiceIcon } from "@/components/service-icon";
 import { JsonLd } from "@/components/json-ld";
 import { PricingCards } from "@/components/pricing";
 import { ServicePricePanel } from "@/components/service-price";
-import { priceLabel } from "@/content/service-pricing";
+import { priceLabel, servicePricing } from "@/content/service-pricing";
+import { OfferNote, OfferTag, WasPrice } from "@/components/offer";
 
 export const revalidate = 300;
 export const dynamicParams = true;
@@ -77,8 +78,9 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
             {priceLabel(service.slug) && (
               <a href="#pricing" className="relative mt-6 flex items-center justify-between border-t border-line pt-4 text-sm hover:text-accent">
                 <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-muted">Starting price</span>
-                <span className="inline-flex items-center gap-2 font-semibold">
-                  <span aria-hidden className="live-dot size-1.5 rounded-full bg-accent" />
+                <span className="inline-flex flex-wrap items-center justify-end gap-2 font-semibold">
+                  <OfferTag />
+                  <WasPrice price={servicePricing[service.slug].from} className="font-normal" />
                   <span data-countup>{priceLabel(service.slug)}</span>
                 </span>
               </a>
@@ -145,6 +147,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         <Section id="pricing" tone="ink">
           <p className="eyebrow">Website packages</p>
           <h2 className="display-2 mt-4">Clear prices. No surprises.</h2>
+          <OfferNote className="mt-5" />
           <div className="mt-10">
             <PricingCards />
           </div>
@@ -153,6 +156,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         <Section id="pricing" tone="ink">
           <p className="eyebrow">Pricing</p>
           <h2 className="display-2 mt-4">Clear starting price.</h2>
+          <OfferNote className="mt-5" />
           <div className="mt-10">
             <ServicePricePanel service={service} />
           </div>

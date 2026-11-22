@@ -5,6 +5,7 @@ import type { Service } from "@/content/types";
 import { servicePricing } from "@/content/service-pricing";
 import { serviceTints } from "@/components/service-visual";
 import { ServiceIcon } from "@/components/service-icon";
+import { OfferTag, WasPrice } from "@/components/offer";
 
 /** Large "starting from" price panel for a single service page. */
 export function ServicePricePanel({ service }: { service: Service }) {
@@ -19,8 +20,9 @@ export function ServicePricePanel({ service }: { service: Service }) {
       <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: `radial-gradient(60% 80% at 90% 0%, color-mix(in oklab, ${tint} 18%, transparent), transparent 70%)` }} />
       <div className="relative grid gap-8 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-5">
-          <p className="eyebrow">Starting from</p>
-          <p className="mt-3 flex items-baseline gap-1">
+          <p className="eyebrow flex items-center gap-3">Starting from <OfferTag /></p>
+          <WasPrice price={p.from} className="mt-3 block text-2xl" />
+          <p className="mt-1 flex items-baseline gap-1">
             <span data-countup className="font-[family-name:var(--font-display)] text-5xl font-semibold tracking-tight sm:text-6xl" style={{ color: tint }}>
               {p.from}
             </span>
@@ -77,7 +79,10 @@ export function AllServicePrices({ services }: { services: Service[] }) {
                   <ServiceIcon name={s.icon} className="size-[1.1rem]" />
                 </span>
                 <span className="text-right">
-                  <span className="block font-mono text-[0.65rem] uppercase tracking-[0.12em] text-muted">From</span>
+                  <span className="flex items-center justify-end gap-2 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-muted">
+                    <OfferTag />
+                    From <WasPrice price={p.from} className="normal-case tracking-normal" />
+                  </span>
                   <span className="font-[family-name:var(--font-display)] text-xl font-semibold" style={{ color: tint }}>
                     {p.from}
                     {p.unit && <span className="text-sm font-normal text-muted">{p.unit}</span>}

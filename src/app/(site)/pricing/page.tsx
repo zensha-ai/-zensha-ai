@@ -17,6 +17,7 @@ import {
 } from "@/content/pricing";
 import { faqJsonLd, pageMetadata } from "@/lib/seo";
 import { ButtonLink, CtaBand, FaqList, PageHero, Section, SectionHeader } from "@/components/ui";
+import { OfferNote, WasPrice } from "@/components/offer";
 import { PricingCards } from "@/components/pricing";
 import { AllServicePrices } from "@/components/service-price";
 import { getServices } from "@/lib/data/catalog";
@@ -89,6 +90,7 @@ export default async function PricingPage() {
           title="Choose the package closest to what you need."
           text="Every project is reviewed before we confirm it. Your package is the starting point; the proposal lists the exact scope."
         />
+        <OfferNote className="mb-8" />
         <PricingCards showCta={false} />
         <p className="mx-auto mt-10 max-w-3xl rounded-2xl border border-dashed border-line-strong p-5 text-center text-sm text-muted">{pricingFinePrint}</p>
       </Section>
@@ -115,7 +117,8 @@ export default async function PricingPage() {
                     <span className="block font-medium" style={{ color: p.tint }}>
                       {p.name}
                     </span>
-                    <span className="mt-1 block font-[family-name:var(--font-display)] text-lg font-semibold">{p.price}</span>
+                    <WasPrice price={p.price} className="mt-1 block text-xs font-normal" />
+                    <span className="block font-[family-name:var(--font-display)] text-lg font-semibold">{p.price}</span>
                     {p.popular && <span className="mt-1 inline-block font-mono text-[0.6rem] uppercase tracking-[0.12em] text-accent">Most popular</span>}
                   </th>
                 ))}
