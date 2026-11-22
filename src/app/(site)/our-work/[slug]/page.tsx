@@ -67,8 +67,8 @@ export default async function WorkDetailPage({ params }: PageProps<"/our-work/[s
             {builtIn?.screenshot && (
               <figure className="flex flex-col overflow-hidden rounded-3xl border border-line bg-surface p-4 lg:col-span-2">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={builtIn.screenshot} alt={`${w.title} sign-in screen`} className="w-full flex-1 rounded-2xl border border-line object-cover" loading="lazy" />
-                <figcaption className="px-2 pt-3 font-mono text-xs text-muted">Live application — secure sign-in</figcaption>
+                <img src={builtIn.screenshot} alt={builtIn.screenshotAlt ?? w.title} className="w-full flex-1 rounded-2xl border border-line object-cover" loading="lazy" />
+                <figcaption className="px-2 pt-3 font-mono text-xs text-muted">{builtIn.screenshotAlt}</figcaption>
               </figure>
             )}
           </div>

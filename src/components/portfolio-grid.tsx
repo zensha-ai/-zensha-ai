@@ -31,6 +31,8 @@ const workVisuals: Record<
   { Visual: (p: { className?: string }) => React.ReactNode }
 > = {
   "trafenix-ai": { Visual: TrafficVisual },
+  "reel-research-ai": { Visual: (p) => <ServiceVisual slug="ai-development-intelligent-solutions" className={`${p.className ?? ""} max-w-md`} /> },
+  "youtube-analytics-pipeline": { Visual: (p) => <ServiceVisual slug="data-engineering-analytics" className={`${p.className ?? ""} max-w-md`} /> },
 };
 
 function Visual({ entry }: { entry: PortfolioEntry }) {
@@ -151,6 +153,10 @@ export function PortfolioGrid({ entries }: { entries: PortfolioEntry[] }) {
                     {e.concept ? (
                       <span className="rounded-full border border-line-strong px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-muted">
                         Concept
+                      </span>
+                    ) : !e.liveUrl ? (
+                      <span className="rounded-full border border-line-strong px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-ink-2">
+                        Built
                       </span>
                     ) : (
                       <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/60 px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-accent">

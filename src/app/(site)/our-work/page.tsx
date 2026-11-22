@@ -15,7 +15,7 @@ import {
   PortfolioGrid,
   type PortfolioEntry,
 } from "@/components/portfolio-grid";
-import { categoryFor, showcaseConcepts } from "@/content/showcase";
+import { categoryFor } from "@/content/showcase";
 import { ArrowUpRight } from "lucide-react";
 import { DashboardVisual } from "@/components/hero-visuals";
 
@@ -56,19 +56,6 @@ export default async function OurWorkPage() {
       concept: false,
       visual: `work:${w.slug}`,
     })),
-    ...showcaseConcepts.map((c) => ({
-      key: `concept-${c.slug}`,
-      title: c.title,
-      type: c.type,
-      category: c.category,
-      industry: c.industry,
-      summary: c.summary,
-      href: `/services/${c.service}`,
-      linkLabel: "See how we build it",
-      liveUrl: null,
-      concept: true,
-      visual: `service:${c.service}`,
-    })),
   ];
 
   return (
@@ -100,9 +87,8 @@ export default async function OurWorkPage() {
                 build.
               </h2>
               <p className="lede mt-5 max-w-2xl">
-                Live products sit alongside concept cards. Concepts show the
-                kinds of systems we build — they are illustrations, not client
-                projects.
+                Products and systems we have designed and built — web
+                platforms, AI agents and data pipelines.
               </p>
             </div>
           </div>
