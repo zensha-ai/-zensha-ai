@@ -13,7 +13,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
-        visual={<AboutHeroScene values={about.values} />}
+        visual={<AboutHeroScene steps={about.approach} />}
         eyebrow={about.eyebrow}
         title={about.headline}
         text={about.intro}

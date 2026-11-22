@@ -1101,23 +1101,6 @@ html.lenis, html.lenis body { height: auto; }
 .hx-etl-steps { display: flex; gap: 6px; }
 .hx-wk-t { right: 0; bottom: 4%; }
 
-/* About */
-.hx-map { position: absolute; inset: 2% 0 40% 0; display: grid; grid-template-columns: repeat(14, 1fr); grid-template-rows: repeat(10, 1fr); }
-.hx-map > i { align-self: center; justify-self: center; width: 4px; height: 4px; border-radius: 50%; background: var(--line-strong); }
-.hx-map > i:nth-child(9n + 4) { background: color-mix(in oklab, var(--accent) 60%, var(--line-strong)); }
-.hx-pin { position: absolute; left: 58%; top: 62%; display: grid; place-items: center; color: var(--accent); transform: translate(-50%, -100%); filter: drop-shadow(0 0 10px var(--accent)); }
-.hx-ripple { position: absolute; left: 50%; top: 100%; width: 64px; height: 24px; margin: -12px 0 0 -32px; border-radius: 50%; border: 1px solid var(--accent); }
-.hx-pin-label { position: absolute; left: 58%; top: 70%; transform: translateX(-50%); padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line-strong); background: color-mix(in oklab, var(--paper) 85%, transparent); font-family: var(--font-mono), monospace; font-size: 9px; white-space: nowrap; }
-.hx-values { position: absolute; left: 6%; right: 6%; bottom: 3%; height: 36%; perspective: 800px; }
-.hx-value { position: absolute; inset: 0; padding: 18px 20px; border-radius: 16px; border: 1px solid var(--line-strong); background: linear-gradient(180deg, #151514, #0a0a0a); box-shadow: 0 30px 60px -30px #000, 0 0 50px -30px var(--accent); opacity: 0; }
-.hx-value:first-child { opacity: 1; }
-.hx-value small { font-family: var(--font-mono), monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
-.hx-value b { display: block; margin-top: 6px; font-family: var(--font-display), sans-serif; font-weight: 800; font-size: 6cqw; letter-spacing: -0.02em; }
-.hx-value p { margin-top: 6px; font-size: 11.5px; color: var(--ink-2); }
-.hx-value-dots { position: absolute; right: 16px; top: 18px; z-index: 2; display: flex; gap: 4px; }
-.hx-value-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--line-strong); }
-.hx-value-dots i:first-child { background: var(--accent); }
-
 /* Contact */
 .hx-form { left: 4%; top: 6%; z-index: 2; width: 70%; }
 .hx-form label { display: block; margin: 10px 0 5px; font-family: var(--font-mono), monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
@@ -1203,12 +1186,6 @@ html.lenis, html.lenis body { height: auto; }
   .hx-etl-steps em:nth-child(2) { animation-delay: 0.5s; } .hx-etl-steps em:nth-child(3) { animation-delay: 1s; }
   .hx-pdf { animation: hx-pdf 4.5s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
 
-  .hx-ripple { animation: hx-ripple 2.4s ease-out infinite; }
-  .hx-ripple-2 { animation-delay: 1.2s; }
-  .hx-map > i:nth-child(9n + 4) { animation: hv-blink 2.4s ease-in-out infinite; }
-  .hx-map > i:nth-child(18n + 4) { animation-delay: 1.2s; }
-  .hx-value { animation: hx-value 12.5s cubic-bezier(0.22, 1, 0.36, 1) infinite; animation-delay: calc(var(--n) * 2.5s); }
-  .hx-value-dots i { animation: hx-dot 12.5s infinite; animation-delay: calc(var(--n) * 2.5s); }
 
   .hx-contact { --T: 10s; }
   .hx-t1 { animation: hx-c1 var(--T) steps(11, end) infinite; }
@@ -1258,9 +1235,6 @@ html.lenis, html.lenis body { height: auto; }
 @keyframes hx-wave { 0%, 100% { height: 25%; } 50% { height: 100%; } }
 @keyframes hx-step { 0% { opacity: 0.35; border-color: var(--line-strong); } 12%, 85% { opacity: 1; border-color: var(--accent); } 100% { opacity: 0.35; border-color: var(--line-strong); } }
 @keyframes hx-pdf { 0%, 40% { opacity: 0; transform: translateY(12px) rotate(9deg); } 55%, 90% { opacity: 1; transform: rotate(4deg); } 100% { opacity: 0; transform: rotate(4deg); } }
-@keyframes hx-ripple { 0% { transform: scale(0.2); opacity: 1; } 100% { transform: scale(1.7); opacity: 0; } }
-@keyframes hx-value { 0% { opacity: 0; transform: translateY(16px) rotateX(-18deg); } 4%, 18% { opacity: 1; transform: none; } 22%, 100% { opacity: 0; transform: translateY(-10px); } }
-@keyframes hx-dot { 0%, 20% { background: var(--accent); } 22%, 100% { background: var(--line-strong); } }
 @keyframes hx-c1 { 0%, 3% { clip-path: inset(0 100% 0 0); } 13%, 92% { clip-path: inset(0 0 0 0); opacity: 1; } 100% { opacity: 0; } }
 @keyframes hx-c2 { 0%, 22% { clip-path: inset(0 100% 0 0); } 34%, 92% { clip-path: inset(0 0 0 0); opacity: 1; } 100% { opacity: 0; } }
 @keyframes hx-c3 { 0%, 34% { clip-path: inset(0 100% 0 0); } 42%, 92% { clip-path: inset(0 0 0 0); opacity: 1; } 100% { opacity: 0; } }
@@ -1283,7 +1257,7 @@ html.lenis, html.lenis body { height: auto; }
   filter: blur(34px); opacity: 0.9;
 }
 .hx-glow { inset: 10%; opacity: 0.95; filter: blur(36px); background: radial-gradient(closest-side, color-mix(in oklab, var(--accent) 60%, transparent), transparent); }
-.hx-win, .hx-plan, .hx-board, .hx-orbit-card, .hx-value, .hx-inbox, .hx-serial, .hx-pw2 {
+.hx-win, .hx-plan, .hx-board, .hx-orbit-card, .hx-steps, .hx-inbox, .hx-serial, .hx-pw2 {
   border-color: color-mix(in oklab, var(--accent) 38%, var(--line-strong));
   box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.03), 0 0 60px -22px color-mix(in oklab, var(--accent) 85%, transparent);
 }
@@ -1293,3 +1267,106 @@ html.lenis, html.lenis body { height: auto; }
 @media (prefers-reduced-motion: no-preference) {
   .hx::before { animation: svc-spin-border 10s linear infinite; }
 }
+
+/* About hero: the tangle straightens into the approach */
+.hx-knot-wrap { position: absolute; left: 0; right: 0; top: 4%; height: 58%; }
+.hx-knot-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.hx-knot-ghost { fill: none; stroke: var(--line-strong); stroke-width: 1.5; stroke-dasharray: 3 7; }
+.hx-knot { fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-linecap: round; filter: drop-shadow(0 0 8px var(--accent)); }
+.hx-knot-node circle { fill: var(--accent); }
+.hx-knot-node .hx-knot-halo { fill: color-mix(in oklab, var(--accent) 22%, transparent); stroke: color-mix(in oklab, var(--accent) 60%, transparent); }
+.hx-runner { fill: #fffbd4; filter: drop-shadow(0 0 8px #fffbd4) drop-shadow(0 0 14px var(--accent)); }
+.hx-knot-tag { position: absolute; padding: 4px 10px; border-radius: 999px; font-family: var(--font-mono), monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; }
+.hx-knot-tag-a { left: 4%; top: 2%; border: 1px dashed var(--line-strong); color: var(--muted); opacity: 0; }
+.hx-knot-tag-b { right: 4%; top: 2%; background: var(--accent); color: var(--on-accent); }
+.hx-steps {
+  position: absolute; left: 4%; right: 4%; bottom: 3%; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 12px;
+  border-radius: 16px; border: 1px solid var(--line-strong); background: linear-gradient(180deg, #151514, #0a0a0a); counter-reset: none;
+}
+.hx-steps li { display: flex; align-items: center; gap: 8px; padding: 7px 9px; border-radius: 10px; border: 1px solid transparent; font-size: 11.5px; color: var(--ink-2); }
+.hx-steps b { font-family: var(--font-mono), monospace; font-size: 9.5px; color: var(--accent); }
+.hx-ab-t { right: 2%; top: 56%; }
+@media (prefers-reduced-motion: no-preference) {
+  .hx-about { --T: 10s; }
+  .hx-knot { animation: hx-untangle var(--T) cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+  .hx-knot-ghost { animation: hx-show-clean var(--T) infinite; }
+  .hx-knot-nodes { animation: hx-show-clean var(--T) infinite; }
+  .hx-knot-node { transform-box: fill-box; transform-origin: center; animation: hx-node-lit var(--T) infinite; animation-delay: calc(3.6s + var(--n) * 0.85s); }
+  .hx-knot-tag-a { animation: hx-tag-a var(--T) infinite; }
+  .hx-knot-tag-b { animation: hx-show-clean var(--T) infinite; }
+  .hx-steps li { animation: hx-step-lit var(--T) infinite; animation-delay: calc(3.6s + var(--n) * 0.85s); }
+  .hx-ab-t { animation: hx-ab-toast var(--T) cubic-bezier(0.22, 1, 0.36, 1) infinite; }
+}
+@media (prefers-reduced-motion: reduce) { .hx-runner { display: none; } }
+@keyframes hx-untangle {
+  0% { d: var(--t); }
+  6%, 14% { d: var(--t); transform: translate(0, 0); }
+  10% { transform: translate(2px, -1px); }
+  34%, 88% { d: var(--c); transform: none; }
+  98%, 100% { d: var(--t); }
+}
+@keyframes hx-show-clean { 0%, 28% { opacity: 0; } 36%, 88% { opacity: 1; } 95%, 100% { opacity: 0; } }
+@keyframes hx-tag-a { 0%, 24% { opacity: 1; } 30%, 92% { opacity: 0; } 98%, 100% { opacity: 1; } }
+@keyframes hx-node-lit { 0% { transform: scale(0.6); } 4% { transform: scale(1.35); } 10%, 100% { transform: scale(1); } }
+@keyframes hx-step-lit {
+  0% { border-color: transparent; background: transparent; color: var(--ink-2); }
+  3%, 40% { border-color: color-mix(in oklab, var(--accent) 60%, transparent); background: var(--accent-soft); color: var(--ink); }
+  50%, 100% { border-color: transparent; background: transparent; color: var(--ink-2); }
+}
+@keyframes hx-ab-toast { 0%, 34% { opacity: 0; transform: translateY(8px) scale(0.95); } 40%, 88% { opacity: 1; transform: none; } 95%, 100% { opacity: 0; } }
+
+/* Services hero: seven orbiting service cards */
+.hx-services .hx-orbit-card { width: 27cqw; max-width: 9rem; padding: 9px 10px; gap: 5px 7px; offset-path: ellipse(45% 41% at 50% 50%); }
+.hx-services .hx-orbit-card b { font-size: 11px; white-space: nowrap; }
+.hx-services .hx-ellipse { inset: 8% 4%; }
+.hx-push { display: flex; align-items: center; gap: 6px; padding: 3px 7px; border-radius: 6px; background: var(--surface-2); font-size: 9.5px; }
+.hx-push i { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+.hx-push em { font-style: normal; color: var(--ink-2); }
+.hx-chatmini { display: flex; flex-direction: column; gap: 3px; width: 100%; }
+.hx-chatmini i { height: 6px; border-radius: 4px; background: var(--surface-2); }
+.hx-chatmini i:first-child { width: 60%; }
+.hx-chatmini i:last-child { width: 45%; margin-left: auto; background: var(--accent); }
+.hx-line { display: block; width: 100%; }
+.hx-line svg { display: block; width: 100%; height: 18px; overflow: visible; }
+.hx-line path { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 4px var(--accent)); }
+@media (prefers-reduced-motion: no-preference) {
+  .hx-push { animation: hx-pushin 3.4s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
+  .hx-chatmini i { animation: hx-chatin 3s cubic-bezier(0.22, 1, 0.36, 1) infinite; transform-origin: left; }
+  .hx-chatmini i:last-child { animation-delay: 0.6s; transform-origin: right; }
+  .hx-line path { stroke-dasharray: 80; animation: hx-linedraw 3.2s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+}
+@keyframes hx-pushin { 0%, 10% { opacity: 0; transform: translateY(-6px); } 22%, 80% { opacity: 1; transform: none; } 92%, 100% { opacity: 0; } }
+@keyframes hx-chatin { 0%, 8% { transform: scaleX(0); } 25%, 85% { transform: scaleX(1); } 100% { transform: scaleX(1); opacity: 0; } }
+@keyframes hx-linedraw { 0% { stroke-dashoffset: 80; } 55%, 90% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 0; opacity: 0.2; } }
+
+/* Hero scenes fit the first screen, so the text block centres on them */
+@media (min-width: 1024px) { .hx { width: min(100%, calc(100svh - 9rem)); } }
+
+/* Services hero: true 3D orbit (tilted ring, cards face the viewer) */
+.hx-services { perspective: 1100px; }
+.hx-services .hx-ellipse { display: none; }
+.hx-ring { position: absolute; left: 50%; top: 52%; width: 0; height: 0; transform-style: preserve-3d; transform: rotateX(68deg); }
+.hx-ring-line { position: absolute; left: 0; top: 0; width: 80cqw; height: 80cqw; border-radius: 50%; transform: translate(-50%, -50%); border: 1px solid color-mix(in oklab, var(--accent) 55%, transparent); box-shadow: 0 0 30px -6px var(--accent), inset 0 0 30px -10px var(--accent); }
+.hx-ring-line-2 { width: 62cqw; height: 62cqw; border-style: dashed; opacity: 0.55; box-shadow: none; }
+.hx-ring-line-3 { width: 96cqw; height: 96cqw; opacity: 0.25; box-shadow: none; }
+.hx-spin { position: absolute; left: 0; top: 0; transform-style: preserve-3d; }
+.hx-slot { position: absolute; left: 0; top: 0; transform-style: preserve-3d; transform: rotateZ(var(--a)) translateX(40cqw); }
+.hx-services .hx-face {
+  position: absolute; left: 0; top: 0; offset-path: none;
+  transform: rotateZ(calc(-1 * var(--a))) rotateX(-68deg) translate(-50%, -50%);
+  backface-visibility: hidden;
+}
+.hx-core3d { position: absolute; left: 0; top: 0; transform-style: preserve-3d; transform: rotateX(-68deg); }
+.hx-services .hx-core { position: absolute; left: 0; top: 0; width: 30cqw; transform: translate(-50%, -58%); }
+@media (prefers-reduced-motion: no-preference) {
+  .hx-services .hx-orbit-card { animation: none; }
+  .hx-spin { animation: hx-spin3d 36s linear infinite; }
+  .hx-services .hx-face { animation: hx-face3d 36s linear infinite; }
+  .hx-ring-line-2 { animation: hx-spinflat 60s linear infinite reverse; }
+}
+@keyframes hx-spin3d { to { transform: rotateZ(360deg); } }
+@keyframes hx-face3d {
+  from { transform: rotateZ(calc(-1 * var(--a))) rotateX(-68deg) translate(-50%, -50%); }
+  to { transform: rotateZ(calc(-1 * var(--a) - 360deg)) rotateX(-68deg) translate(-50%, -50%); }
+}
+@keyframes hx-spinflat { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }

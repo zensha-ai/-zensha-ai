@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Fragment, type ComponentProps, type ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { brand } from "@/config/brand";
 import { NetworkField } from "@/components/effects";
 
 export const cx = (...c: (string | false | null | undefined)[]) => c.filter(Boolean).join(" ");
@@ -137,11 +136,7 @@ export function PageHero({
             {children}
           </div>
           <div className="fade-up mx-auto w-full max-w-xl lg:col-span-6 lg:max-w-none xl:-mr-8" style={{ "--d": "0.2s" } as React.CSSProperties}>
-            <div className="flex items-center justify-center [&_svg]:max-h-[min(30rem,58svh)]">{visual}</div>
-            <p className="mt-4 flex items-center justify-between font-mono text-xs text-muted">
-              <span>{brand.brandName}</span>
-              <span>{brand.descriptor}</span>
-            </p>
+            <div className="flex items-center justify-center">{visual}</div>
           </div>
         </div>
         {strip && <div className="relative border-t border-line bg-paper/40 backdrop-blur">{strip}</div>}

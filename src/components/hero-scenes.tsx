@@ -9,10 +9,10 @@ import {
   FileText,
   Gauge,
   LayoutDashboard,
-  MapPin,
   MessageCircle,
   Rocket,
   Send,
+  Smartphone,
   Sparkles,
   Workflow,
 } from "lucide-react";
@@ -59,33 +59,46 @@ function Toast({ className, children }: { className: string; children: ReactNode
 /* ── Services: four capability cards orbiting a glowing core ─────────── */
 export function ServicesHeroScene({ count }: { count: number }) {
   const cards = [
-    { k: "build", icon: Rocket, label: "Build", body: <span className="hx-progress"><i /></span>, note: "Deploying…" },
-    { k: "ai", icon: Bot, label: "AI", body: <span className="gs-typing hx-dots"><i /> <i /> <i /></span>, note: "Answering" },
-    { k: "auto", icon: Workflow, label: "Automate", body: <span className="hx-mini-flow"><b /><b /><b /><em /></span>, note: "Lead → CRM" },
-    { k: "grow", icon: BarChart3, label: "Grow", body: <span className="hx-spark"><i /><i /><i /><i /><i /><i /></span>, note: "Report ready" },
+    { k: "web", icon: Rocket, label: "Websites", body: <span className="hx-progress"><i /></span>, note: "Deploying…" },
+    { k: "apps", icon: LayoutDashboard, label: "Web apps", body: <span className="hx-spark"><i /><i /><i /><i /><i /><i /></span>, note: "Dashboard live" },
+    { k: "mobile", icon: Smartphone, label: "Mobile apps", body: <span className="hx-push"><i /><em>New booking</em></span>, note: "Push sent" },
+    { k: "ai", icon: Bot, label: "AI & chatbots", body: <span className="gs-typing hx-dots"><i /> <i /> <i /></span>, note: "Answering" },
+    { k: "auto", icon: Workflow, label: "Automation", body: <span className="hx-mini-flow"><b /><b /><b /><em /></span>, note: "Lead → CRM" },
+    { k: "wa", icon: MessageCircle, label: "WhatsApp", body: <span className="hx-chatmini"><i /><i /></span>, note: "Reply sent" },
+    { k: "data", icon: BarChart3, label: "Data & SEO", body: <span className="hx-line"><svg viewBox="0 0 60 18"><path d="M0 16 L12 12 L24 13 L36 7 L48 8 L60 1" /></svg></span>, note: "Report ready" },
   ];
+  const n = cards.length;
   return (
     <Scene name="services">
-      <div className="hx-ellipse" />
-      <div className="hx-ellipse hx-ellipse-2" />
-      <div className="hx-core">
-        <span className="hx-core-ring" />
-        <span className="hx-core-ring hx-core-ring-2" />
-        <div className="hx-core-orb">
-          <b className="gs-count hx-count" style={v({ "--to": count })} />
-          <small>services</small>
+      <div className="hx-ring">
+        <span className="hx-ring-line" />
+        <span className="hx-ring-line hx-ring-line-2" />
+        <span className="hx-ring-line hx-ring-line-3" />
+        <div className="hx-spin">
+          {cards.map((c, i) => (
+            <div key={c.k} className="hx-slot" style={v({ "--a": `${(i * 360) / n}deg` })}>
+              <div className={`hx-face hx-orbit-card hx-oc-${c.k}`}>
+                <span className="hx-oc-icon">
+                  <c.icon className="size-3.5" />
+                </span>
+                <b>{c.label}</b>
+                <span className="hx-oc-body">{c.body}</span>
+                <small>{c.note}</small>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="hx-core3d">
+          <div className="hx-core">
+            <span className="hx-core-ring" />
+            <span className="hx-core-ring hx-core-ring-2" />
+            <div className="hx-core-orb">
+              <b className="gs-count hx-count" style={v({ "--to": count })} />
+              <small>services</small>
+            </div>
+          </div>
         </div>
       </div>
-      {cards.map((c, i) => (
-        <div key={c.k} className={`hx-orbit-card hx-oc-${c.k}`} style={v({ "--d": `${i * 25}%` })}>
-          <span className="hx-oc-icon">
-            <c.icon className="size-3.5" />
-          </span>
-          <b>{c.label}</b>
-          <span className="hx-oc-body">{c.body}</span>
-          <small>{c.note}</small>
-        </div>
-      ))}
     </Scene>
   );
 }
@@ -264,35 +277,53 @@ export function WorkHeroScene() {
   );
 }
 
-/* ── About: Bengaluru on the map and the five principles cycling ────────── */
-export function AboutHeroScene({ values }: { values: { title: string; text: string }[] }) {
+/* ── About: "Useful, not complicated" — a tangle straightens into the approach ── */
+const KNOT_POINTS: [number, number][] = [
+  [30, 228], [92, 196], [150, 176], [208, 140], [266, 118], [322, 84], [372, 46],
+];
+const TANGLE =
+  "M 60 140 C 340 20, 20 250, 300 200 C 380 170, 60 40, 200 120 C 330 210, 120 250, 90 90 C 60 0, 380 60, 260 160 C 160 240, 30 200, 140 60 C 230 -20, 360 120, 210 190";
+const CLEAN = KNOT_POINTS.slice(1)
+  .map(([x, y], i) => {
+    const [px, py] = KNOT_POINTS[i];
+    return `C ${px + 26} ${py}, ${x - 26} ${y}, ${x} ${y}`;
+  })
+  .reduce((acc, seg) => `${acc} ${seg}`, `M ${KNOT_POINTS[0][0]} ${KNOT_POINTS[0][1]}`);
+
+export function AboutHeroScene({ steps }: { steps: string[] }) {
+  const shown = steps.slice(0, 6);
   return (
     <Scene name="about">
-      <div className="hx-map">
-        {Array.from({ length: 140 }).map((_, i) => (
-          <i key={i} />
-        ))}
-        <span className="hx-pin">
-          <span className="hx-ripple" />
-          <span className="hx-ripple hx-ripple-2" />
-          <MapPin className="size-5" />
-        </span>
-        <span className="hx-pin-label">{brand.brandName} · Bengaluru</span>
+      <div className="hx-knot-wrap">
+        <span className="hx-knot-tag hx-knot-tag-a">Complicated</span>
+        <span className="hx-knot-tag hx-knot-tag-b">Useful</span>
+        <svg viewBox="0 0 400 260" className="hx-knot-svg">
+          <path d={CLEAN} className="hx-knot-ghost" />
+          <path d={CLEAN} className="hx-knot" style={v({ "--t": `path("${TANGLE}")`, "--c": `path("${CLEAN}")` })} />
+          <g className="hx-knot-nodes">
+            {KNOT_POINTS.slice(1).map(([x, y], i) => (
+              <g key={i} className="hx-knot-node" style={v({ "--n": i })}>
+                <circle cx={x} cy={y} r="11" className="hx-knot-halo" />
+                <circle cx={x} cy={y} r="5.5" />
+              </g>
+            ))}
+            <circle r="6" className="hx-runner">
+              <animateMotion dur="10s" repeatCount="indefinite" path={CLEAN} keyPoints="0;0;1;1" keyTimes="0;0.36;0.86;1" calcMode="linear" />
+            </circle>
+          </g>
+        </svg>
       </div>
-      <div className="hx-values">
-        {values.slice(0, 5).map((val, i) => (
-          <div key={val.title} className="hx-value" style={v({ "--n": i })}>
-            <small>Principle {String(i + 1).padStart(2, "0")}</small>
-            <b>{val.title}</b>
-            <p>{val.text}</p>
-          </div>
+      <ol className="hx-steps">
+        {shown.map((st, i) => (
+          <li key={st} style={v({ "--n": i })}>
+            <b>{String(i + 1).padStart(2, "0")}</b>
+            {st.replace(/\.$/, "")}
+          </li>
         ))}
-        <div className="hx-value-dots">
-          {values.slice(0, 5).map((val, i) => (
-            <i key={val.title} style={v({ "--n": i })} />
-          ))}
-        </div>
-      </div>
+      </ol>
+      <Toast className="hx-ab-t">
+        <Sparkles className="size-3 text-accent" /> Useful, not complicated
+      </Toast>
     </Scene>
   );
 }
