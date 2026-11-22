@@ -17,7 +17,7 @@ import {
 } from "@/components/portfolio-grid";
 import { categoryFor } from "@/content/showcase";
 import { ArrowUpRight } from "lucide-react";
-import { DashboardVisual } from "@/components/hero-visuals";
+import { WorkHeroScene } from "@/components/hero-scenes";
 
 export const revalidate = 300;
 export const metadata: Metadata = pageMetadata({
@@ -61,7 +61,7 @@ export default async function OurWorkPage() {
   return (
     <>
       <PageHero
-        visual={<DashboardVisual />}
+        visual={<WorkHeroScene />}
         eyebrow="Selected projects and practical outcomes"
         title="Real products, built and running."
         text="The problem, the approach and what we actually delivered."

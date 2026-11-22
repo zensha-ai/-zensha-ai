@@ -25,7 +25,7 @@ import { getOffer, getServices } from "@/lib/data/catalog";
 import { IconTile, tileTints } from "@/components/icon-tile";
 import { JsonLd } from "@/components/json-ld";
 import { Reveal } from "@/components/motion";
-import { PricingRingVisual } from "@/components/hero-visuals";
+import { PricingHeroScene } from "@/components/hero-scenes";
 
 export const metadata: Metadata = pageMetadata({
   title: `Website Packages & Pricing | ${brand.brandName}`,
@@ -38,7 +38,7 @@ export default async function PricingPage() {
   return (
     <>
       <PageHero
-        visual={<PricingRingVisual price={applyOffer(websitePlans[0].price, offer).now} plans={websitePlans} />}
+        visual={<PricingHeroScene plans={websitePlans.map((p) => ({ name: p.name, price: applyOffer(p.price, offer).now, popular: p.popular }))} />}
         eyebrow="Clear starting prices · honest final proposals"
         title="Simple, honest pricing."
         text="Clear website packages — or a custom quote for apps, AI and automation."

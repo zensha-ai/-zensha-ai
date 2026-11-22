@@ -6,7 +6,7 @@ import { getArticles } from "@/lib/data/catalog";
 import { pageMetadata } from "@/lib/seo";
 import { ArticleCard, kindMeta } from "@/components/resources";
 import { Badge, ButtonLink, CtaBand, PageHero, Section, SectionHeader } from "@/components/ui";
-import { ArticlesVisual } from "@/components/hero-visuals";
+import { ResourcesHeroScene } from "@/components/hero-scenes";
 
 export const revalidate = 300;
 export const metadata: Metadata = pageMetadata({ ...pageSeo.resources, path: "/resources" });
@@ -23,7 +23,7 @@ export default async function ResourcesPage() {
   return (
     <>
       <PageHero
-        visual={<ArticlesVisual />}
+        visual={<ResourcesHeroScene />}
         eyebrow="Ideas, guides and answers for businesses"
         title="Clear answers, better decisions."
         text="Guides, insights and honest answers for business owners."

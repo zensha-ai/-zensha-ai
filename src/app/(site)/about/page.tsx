@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 import { ButtonLink, CtaBand, PageHero, Section, SectionHeader } from "@/components/ui";
 import { JsonLd } from "@/components/json-ld";
 import { Reveal } from "@/components/motion";
-import { AboutOrbitVisual } from "@/components/hero-visuals";
+import { AboutHeroScene } from "@/components/hero-scenes";
 
 export const metadata: Metadata = pageMetadata({ ...pageSeo.about, path: "/about" });
 
@@ -13,7 +13,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
-        visual={<AboutOrbitVisual />}
+        visual={<AboutHeroScene values={about.values} />}
         eyebrow={about.eyebrow}
         title={about.headline}
         text={about.intro}

@@ -6,7 +6,7 @@ import { getStudentProjects } from "@/lib/data/catalog";
 import { pageMetadata } from "@/lib/seo";
 import { ButtonLink, DraftNotice, PageHero, Section, SectionHeader } from "@/components/ui";
 import { ProjectBrowser } from "@/components/catalog/project-browser";
-import { CircuitVisual } from "@/components/hero-visuals";
+import { StudentHeroScene } from "@/components/hero-scenes";
 
 export const revalidate = 300;
 export const metadata: Metadata = pageMetadata({ ...pageSeo.studentProjects, path: "/student-projects" });
@@ -33,7 +33,7 @@ export default async function StudentProjectsPage() {
   return (
     <>
       <PageHero
-        visual={<CircuitVisual />}
+        visual={<StudentHeroScene />}
         eyebrow="Student projects"
         title="Learn by building."
         text="Software, hardware and IoT projects — with demos, parts lists and clear package contents."

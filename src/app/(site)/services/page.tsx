@@ -8,7 +8,7 @@ import { ButtonLink, CtaBand, PageHero, Section } from "@/components/ui";
 import { ServiceGrid, ServiceLinkCard } from "@/components/service-card";
 import { ServicesShowcase, type ShowcaseSlide } from "@/components/services-showcase";
 import { ServicesHub } from "@/components/services-hub";
-import { ServicesOrbitVisual } from "@/components/hero-visuals";
+import { ServicesHeroScene } from "@/components/hero-scenes";
 
 export const revalidate = 300;
 export const metadata: Metadata = pageMetadata({ ...pageSeo.services, path: "/services" });
@@ -35,7 +35,7 @@ export default async function ServicesPage() {
   return (
     <>
       <PageHero
-        visual={<ServicesOrbitVisual />}
+        visual={<ServicesHeroScene count={services.length} />}
         eyebrow="Technology services for growing businesses"
         title="Build, connect and grow."
         text="Design, development, AI, automation and data — under one roof. Explore each service below, or open its page for details, process and FAQs."

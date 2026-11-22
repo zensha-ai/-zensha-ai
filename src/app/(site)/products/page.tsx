@@ -5,7 +5,7 @@ import { getProducts } from "@/lib/data/catalog";
 import { pageMetadata } from "@/lib/seo";
 import { ButtonLink, CtaBand, EmptyState, PageHero, Section } from "@/components/ui";
 import { ProductBrowser } from "@/components/catalog/product-browser";
-import { ProductsStackVisual } from "@/components/hero-visuals";
+import { ProductsHeroScene } from "@/components/hero-scenes";
 
 export const revalidate = 300;
 export const metadata: Metadata = pageMetadata({ ...pageSeo.products, path: "/products" });
@@ -15,7 +15,7 @@ export default async function ProductsPage() {
   return (
     <>
       <PageHero
-        visual={<ProductsStackVisual />}
+        visual={<ProductsHeroScene />}
         eyebrow="Software and AI products"
         title="Tools that just work."
         text="Software and AI tools that make everyday work faster and simpler."

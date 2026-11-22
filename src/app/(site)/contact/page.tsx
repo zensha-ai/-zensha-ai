@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/seo";
 import { PageHero, Section } from "@/components/ui";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { ContactDetails } from "@/components/contact-details";
-import { ContactVisual } from "@/components/hero-visuals";
+import { ContactHeroScene } from "@/components/hero-scenes";
 
 export const metadata: Metadata = pageMetadata({ ...pageSeo.contact, path: "/contact" });
 
@@ -22,7 +22,7 @@ export default async function ContactPage({ searchParams }: PageProps<"/contact"
   return (
     <>
       <PageHero
-        visual={<ContactVisual />}
+        visual={<ContactHeroScene />}
         eyebrow="Tell us what you have in mind"
         title="Let’s build something useful."
         text="Planning a website, application, AI solution or automation project? Share a little about your idea and we will help you identify the next step."
