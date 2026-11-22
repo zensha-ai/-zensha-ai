@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, type CSSProperties } from "react";
 import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
-import { ServiceVisual } from "@/components/service-visual";
+import { GroupScene } from "@/components/group-scenes";
 
 export type ShowcaseSlide = {
   key: string;
@@ -128,9 +128,8 @@ export function ServicesShowcase({ slides }: { slides: ShowcaseSlide[] }) {
                         <span className="size-2 rounded-full bg-line-strong" />
                         <span className="ml-auto font-mono text-[0.65rem] text-muted">zensha / {s.key}</span>
                       </div>
-                      <div className="relative grid place-items-center px-10 py-12">
-                        <div className="hs-orb" />
-                        <ServiceVisual slug={s.visual} className="relative max-w-sm" />
+                      <div className="hs-scene">
+                        <GroupScene group={s.key} />
                       </div>
                     </div>
                     <span className="hs-chip">

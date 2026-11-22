@@ -21,7 +21,7 @@ export function ServicePricePanel({ service }: { service: Service }) {
         <div className="lg:col-span-5">
           <p className="eyebrow">Starting from</p>
           <p className="mt-3 flex items-baseline gap-1">
-            <span className="font-[family-name:var(--font-display)] text-5xl font-semibold tracking-tight sm:text-6xl" style={{ color: tint }}>
+            <span data-countup className="font-[family-name:var(--font-display)] text-5xl font-semibold tracking-tight sm:text-6xl" style={{ color: tint }}>
               {p.from}
             </span>
             {p.unit && <span className="text-lg text-muted">{p.unit}</span>}

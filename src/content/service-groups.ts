@@ -7,6 +7,8 @@ export type ServiceGroup = {
   label: string;
   title: string;
   text: string;
+  /** Pop-up note shown on service cards on hover. */
+  toast: string;
   /** Short tags shown on the hub diagram cards. */
   tags: string[];
   services: string[];
@@ -15,6 +17,7 @@ export type ServiceGroup = {
 export const serviceGroups: ServiceGroup[] = [
   {
     key: "build",
+    toast: "Site live",
     label: "Build",
     title: "Websites, Apps & Software",
     text: "Websites, web apps, mobile apps and custom software — designed around your customers and engineered to stay reliable after launch.",
@@ -23,6 +26,7 @@ export const serviceGroups: ServiceGroup[] = [
   },
   {
     key: "ai",
+    toast: "Answer ready",
     label: "AI",
     title: "AI Solutions & Chatbots",
     text: "Practical AI that answers customers, reads documents and supports decisions — with clear limits and a person in the loop where it matters.",
@@ -31,6 +35,7 @@ export const serviceGroups: ServiceGroup[] = [
   },
   {
     key: "automate",
+    toast: "New lead captured",
     label: "Automate",
     title: "Automation & Integrations",
     text: "Connect your tools, automate the repetitive steps and reply to WhatsApp and Instagram enquiries quickly — so your team spends time on real work.",
@@ -39,6 +44,7 @@ export const serviceGroups: ServiceGroup[] = [
   },
   {
     key: "grow",
+    toast: "Report updated",
     label: "Grow",
     title: "Data, SEO & Marketing",
     text: "Get found on Google, measure what works and turn scattered spreadsheets into dashboards you can trust.",

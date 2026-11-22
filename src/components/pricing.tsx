@@ -59,7 +59,7 @@ function PlanCard({ plan: p, bobDelay }: { plan: Plan; bobDelay: number }) {
 
         <h3 className="relative mt-6 text-xl font-medium">{p.name}</h3>
         <p className="relative mt-3 flex items-baseline gap-2">
-          <span className="font-[family-name:var(--font-display)] text-4xl font-semibold tracking-tight" style={{ color: p.tint }}>
+          <span data-countup className="font-[family-name:var(--font-display)] text-4xl font-semibold tracking-tight" style={{ color: p.tint }}>
             {p.price}
           </span>
         </p>

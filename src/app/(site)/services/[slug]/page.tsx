@@ -79,7 +79,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
                 <span className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-muted">Starting price</span>
                 <span className="inline-flex items-center gap-2 font-semibold">
                   <span aria-hidden className="live-dot size-1.5 rounded-full bg-accent" />
-                  {priceLabel(service.slug)}
+                  <span data-countup>{priceLabel(service.slug)}</span>
                 </span>
               </a>
             )}

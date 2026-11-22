@@ -44,8 +44,12 @@ export function ServiceTile({ service: s, wide = false }: { service: Service; wi
           {s.technologies.slice(0, 2).join(" · ")}
         </span>
         {priceLabel(s.slug) && (
-          <span className="absolute right-4 top-4 rounded-full bg-accent px-3 py-1 font-mono text-[0.65rem] text-on-accent">{priceLabel(s.slug)}</span>
+          <span data-countup className="absolute right-4 top-4 rounded-full bg-accent px-3 py-1 font-mono text-[0.65rem] text-on-accent">{priceLabel(s.slug)}</span>
         )}
+        <span aria-hidden className="xtile-toast">
+          <span className="live-dot size-1.5 rounded-full bg-accent" />
+          {group.toast}
+        </span>
       </div>
       <div className={cx("relative flex flex-1 flex-col p-7 sm:p-8", wide && "lg:w-1/2 lg:p-12")}>
         <div className="flex items-center justify-between font-mono text-xs">

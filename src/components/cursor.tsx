@@ -56,7 +56,7 @@ export function Cursor() {
       }
       const t = e.target as Element | null;
       const field = t?.closest?.("input, textarea, select, [contenteditable='true']");
-      const card = t?.closest?.("[data-card], .svc-card");
+      const card = t?.closest?.("[data-card], a.svc-card");
       const link = t?.closest?.("a, button, [role='button'], summary, label");
       const state = field ? "hidden" : card && !t?.closest?.("a[target], button") ? "view" : link ? "link" : "default";
       ring.dataset.state = state;

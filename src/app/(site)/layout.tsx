@@ -6,6 +6,7 @@ import { Cursor } from "@/components/cursor";
 import { Intro } from "@/components/intro";
 import { CookieConsent } from "@/components/cookie-consent";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { TextEffects } from "@/components/text-effects";
 import { organizationJsonLd } from "@/lib/seo";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
@@ -22,6 +23,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <SpotlightTracker />
       <Cursor />
       <SmoothScroll />
+      <TextEffects />
       <CookieConsent />
     </>
   );
