@@ -1,4 +1,5 @@
 import { Header } from "@/components/layout/header";
+import { OfferTicker } from "@/components/offer-ticker";
 import { Footer } from "@/components/layout/footer";
 import { JsonLd } from "@/components/json-ld";
 import { SpotlightTracker } from "@/components/effects";
@@ -14,6 +15,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
     <>
       <Intro />
       <div aria-hidden className="scroll-progress" />
+      <OfferTicker />
       <Header />
       <main id="main" tabIndex={-1} className="outline-none">
         {children}
