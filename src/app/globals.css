@@ -1274,3 +1274,22 @@ html.lenis, html.lenis body { height: auto; }
   70%, 100% { opacity: 0; transform: translate(60cqw, 4cqw) scale(0.5); }
 }
 @keyframes hx-inbox { 0%, 67% { opacity: 0; transform: translateY(12px) scale(0.96); } 71%, 92% { opacity: 1; transform: none; } 98%, 100% { opacity: 0; } }
+
+/* Hero scenes: bigger and more highlighted */
+.hx { max-width: 46rem; font-size: 12px; }
+.hx::before {
+  content: ""; position: absolute; inset: 2%; z-index: 0; border-radius: 50%; pointer-events: none;
+  background: conic-gradient(from var(--angle, 0deg), transparent 0deg, color-mix(in oklab, var(--accent) 70%, transparent) 70deg, transparent 150deg, transparent 210deg, color-mix(in oklab, var(--accent-2) 60%, transparent) 280deg, transparent 360deg);
+  filter: blur(34px); opacity: 0.9;
+}
+.hx-glow { inset: 10%; opacity: 0.95; filter: blur(36px); background: radial-gradient(closest-side, color-mix(in oklab, var(--accent) 60%, transparent), transparent); }
+.hx-win, .hx-plan, .hx-board, .hx-orbit-card, .hx-value, .hx-inbox, .hx-serial, .hx-pw2 {
+  border-color: color-mix(in oklab, var(--accent) 38%, var(--line-strong));
+  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.03), 0 0 60px -22px color-mix(in oklab, var(--accent) 85%, transparent);
+}
+.hx-plan.is-popular { box-shadow: 0 40px 80px -35px #000, 0 0 90px -18px var(--accent); }
+.hx-toast { border-color: color-mix(in oklab, var(--accent) 60%, var(--line-strong)); box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.8), 0 0 24px -8px var(--accent); }
+.hx-core-orb { box-shadow: 0 0 130px -6px var(--accent), inset 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 -18px 30px rgba(0, 0, 0, 0.35); }
+@media (prefers-reduced-motion: no-preference) {
+  .hx::before { animation: svc-spin-border 10s linear infinite; }
+}
