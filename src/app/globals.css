@@ -1489,3 +1489,99 @@ html.lenis, html.lenis body { height: auto; }
 @keyframes hx-rove { 0%, 100% { transform: translate(120px, 312px); } 50% { transform: translate(250px, 314px); } }
 @keyframes hx-tminus { 0% { content: "T-3"; } 8% { content: "T-2"; } 16% { content: "T-1"; } 24%, 100% { content: "LIFT-OFF"; } }
 @keyframes hx-alt { 0%, 25% { --count: 0; } 70%, 100% { --count: var(--to); } }
+
+/* Student projects hero: satellite in the centre, six robots orbiting and working */
+
+.hx-bay { background: radial-gradient(120% 80% at 50% 30%, #22100b, #070505 65%); }
+.hx-satring { top: 56%; }
+.hx-satring .hx-ring-line { width: 76cqw; height: 76cqw; }
+.hx-satring .hx-ring-line-2 { width: 50cqw; height: 50cqw; }
+.hx-satring .hx-slot { transform: rotateZ(var(--a)) translateX(38cqw); }
+.hx-beam {
+  position: absolute; top: -1px; left: -38cqw; width: 38cqw; height: 3px; border-radius: 2px; transform-origin: right center;
+  background: repeating-linear-gradient(90deg, var(--accent) 0 8px, transparent 8px 16px); box-shadow: 0 0 10px var(--accent); opacity: 0.75;
+}
+.hx-fxr {
+  position: absolute; left: 0; top: 0; width: var(--w); display: flex; flex-direction: column; align-items: center; transform-origin: 0 0;
+  transform: rotateZ(calc(-1 * var(--a))) rotateX(-68deg) translate(-50%, -86%); backface-visibility: hidden;
+}
+.hx-fxr .hx-bot-svg { display: block; width: 100%; height: auto; overflow: visible; filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.65)); }
+.hx-fxr .hx-rb-inner { width: 100%; }
+.hx-fxr .hx-bot-head { transform-box: view-box; transform-origin: 65px 96px; }
+.hx-fxr-tag { display: inline-flex; align-items: center; gap: 4px; margin-top: 2px; padding: 2px 7px; border-radius: 999px; border: 1px solid color-mix(in oklab, var(--accent) 45%, var(--line-strong)); background: color-mix(in oklab, #0b0b0a 88%, transparent); font-family: var(--font-mono), monospace; font-size: 1.6cqw; white-space: nowrap; color: var(--ink); }
+.hx-fxr-tag svg { color: var(--accent); }
+.hx-satcore { position: absolute; left: 0; top: 0; width: 64cqw; transform: translate(-50%, -74%); }
+.hx-satbig { display: block; width: 100%; height: auto; overflow: visible; filter: drop-shadow(0 0 10px color-mix(in oklab, var(--accent) 40%, transparent)); }
+.hx-ghost * { fill: none; stroke: color-mix(in oklab, #fffbd4 30%, transparent); stroke-width: 1; stroke-dasharray: 3 3; }
+.hx-sat-core { fill: #fffbd4; }
+.hx-sat-arm { fill: #77756a; }
+.hx-sat-mast { stroke: #77756a; stroke-width: 2; }
+.hx-strut { stroke: color-mix(in oklab, var(--accent) 35%, transparent); stroke-width: 1; }
+.hx-pcb2 { fill: #10201a; stroke: #2a3b33; stroke-width: 1; }
+.hx-pcb2-trace { fill: none; stroke: #c9a227; stroke-width: 1; }
+.hx-pcb2-chip { fill: #0b0b0a; }
+.hx-screen { fill: #0b0b0a; stroke: #3a3934; stroke-width: 1; }
+.hx-code { stroke: var(--accent); stroke-width: 2; stroke-linecap: round; }
+.hx-up-track { fill: #2a2925; }
+.hx-up-fill { fill: var(--accent); transform-box: fill-box; transform-origin: left; }
+.hx-sig2 { fill: none; stroke: var(--accent); stroke-width: 1.4; stroke-linecap: round; }
+.hx-panel { fill: #1b1f3a; stroke: #fffbd4; stroke-width: 1; }
+.hx-panel-grid { fill: none; stroke: color-mix(in oklab, #fffbd4 45%, transparent); stroke-width: 0.8; }
+.hx-dish2 { fill: #c9c5b2; stroke: #fffbd4; stroke-width: 1; }
+.hx-beacon { fill: var(--accent); filter: drop-shadow(0 0 4px var(--accent)); }
+.hx-lens-ring { fill: #34332e; }
+.hx-lens { fill: #111; stroke: var(--accent); stroke-width: 1.5; }
+.hx-sp { transform-box: fill-box; transform-origin: center; }
+.hx-fixsparks circle { fill: #ffd27a; filter: drop-shadow(0 0 3px #ffb347); }
+.hx-build { position: absolute; left: 4%; top: 3%; z-index: 7; padding: 5px 11px; border-radius: 999px; border: 1px solid color-mix(in oklab, var(--accent) 50%, var(--line-strong)); background: #111110; font-family: var(--font-mono), monospace; font-size: 10px; color: var(--ink-2); }
+.hx-build b { color: #fffbd4; }
+.hx-ready { left: 50%; right: auto; top: 3%; transform: translateX(-50%); }
+@media (prefers-reduced-motion: no-preference) {
+  .hx-student { --T: 21.0s; }
+  .hx-satring .hx-spin { animation: hx-spin3d 40s linear infinite; }
+  .hx-satring .hx-fxr { animation: hx-face-stand 40s linear infinite; }
+  .hx-satring .hx-ring-line-2 { animation: hx-spinflat 50s linear infinite reverse; }
+  .hx-beam { animation: hx-beamflow 0.8s linear infinite; }
+  .hx-fxr .hx-bot-head { animation: hx-busy 1.1s ease-in-out infinite; animation-delay: calc(var(--n) * -0.18s); }
+  .hx-fixsparks circle { transform-box: fill-box; transform-origin: center; animation: hx-spark 0.7s ease-out infinite; }
+  .hx-student .hx-built { animation: hx-built var(--T) steps(1) infinite; }
+  .hx-ready { animation: hx-ready var(--T) cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+  .hx-satbig { animation: hx-sat-glow var(--T) ease infinite; }
+  .hx-beacon, .hx-sig2 { animation: hv-blink 1.2s ease-in-out infinite; }
+  .hx-up-fill { animation: hx-load2 2.4s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+  .hx-sp-0 { animation: hx-part-0 var(--T) cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+  .hx-fxr-0 .hx-rb-inner { animation: hx-act-0 var(--T) ease infinite; }
+  .hx-sp-1 { animation: hx-part-1 var(--T) cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+  .hx-fxr-1 .hx-rb-inner { animation: hx-act-1 var(--T) ease infinite; }
+  .hx-sp-2 { animation: hx-part-2 var(--T) cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+  .hx-fxr-2 .hx-rb-inner { animation: hx-act-2 var(--T) ease infinite; }
+  .hx-sp-3 { animation: hx-part-3 var(--T) cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+  .hx-fxr-3 .hx-rb-inner { animation: hx-act-3 var(--T) ease infinite; }
+  .hx-sp-4 { animation: hx-part-4 var(--T) cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+  .hx-fxr-4 .hx-rb-inner { animation: hx-act-4 var(--T) ease infinite; }
+  .hx-sp-5 { animation: hx-part-5 var(--T) cubic-bezier(0.34, 1.56, 0.64, 1) infinite; }
+  .hx-fxr-5 .hx-rb-inner { animation: hx-act-5 var(--T) ease infinite; }
+}
+@keyframes hx-face-stand {
+  from { transform: rotateZ(calc(-1 * var(--a))) rotateX(-68deg) translate(-50%, -86%); }
+  to { transform: rotateZ(calc(-1 * var(--a) - 360deg)) rotateX(-68deg) translate(-50%, -86%); }
+}
+@keyframes hx-beamflow { from { background-position: 0 0; } to { background-position: -16px 0; } }
+@keyframes hx-busy { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(8deg); } }
+@keyframes hx-load2 { 0% { transform: scaleX(0.05); } 80%, 100% { transform: scaleX(1); } }
+@keyframes hx-spark { 0% { opacity: 1; transform: translate(0, 0) scale(1); } 100% { opacity: 0; transform: translate(var(--sx, 12px), var(--sy, -8px)) scale(0.3); } }
+@keyframes hx-part-0 { 0%, 10.0% { opacity: 0; transform: scale(0.6); } 11.19% { opacity: 1; transform: scale(1.12); } 12.38%, 96% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+@keyframes hx-act-0 { 0%, 0.0% { filter: none; } 1.9%, 11.9% { filter: drop-shadow(0 0 14px var(--accent)) brightness(1.25); } 14.29%, 100% { filter: none; } }
+@keyframes hx-part-1 { 0%, 24.29% { opacity: 0; transform: scale(0.6); } 25.48% { opacity: 1; transform: scale(1.12); } 26.67%, 96% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+@keyframes hx-act-1 { 0%, 14.29% { filter: none; } 16.19%, 26.19% { filter: drop-shadow(0 0 14px var(--accent)) brightness(1.25); } 28.57%, 100% { filter: none; } }
+@keyframes hx-part-2 { 0%, 38.57% { opacity: 0; transform: scale(0.6); } 39.76% { opacity: 1; transform: scale(1.12); } 40.95%, 96% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+@keyframes hx-act-2 { 0%, 28.57% { filter: none; } 30.48%, 40.48% { filter: drop-shadow(0 0 14px var(--accent)) brightness(1.25); } 42.86%, 100% { filter: none; } }
+@keyframes hx-part-3 { 0%, 52.86% { opacity: 0; transform: scale(0.6); } 54.05% { opacity: 1; transform: scale(1.12); } 55.24%, 96% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+@keyframes hx-act-3 { 0%, 42.86% { filter: none; } 44.76%, 54.76% { filter: drop-shadow(0 0 14px var(--accent)) brightness(1.25); } 57.14%, 100% { filter: none; } }
+@keyframes hx-part-4 { 0%, 67.14% { opacity: 0; transform: scale(0.6); } 68.33% { opacity: 1; transform: scale(1.12); } 69.52%, 96% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+@keyframes hx-act-4 { 0%, 57.14% { filter: none; } 59.05%, 69.05% { filter: drop-shadow(0 0 14px var(--accent)) brightness(1.25); } 71.43%, 100% { filter: none; } }
+@keyframes hx-part-5 { 0%, 81.43% { opacity: 0; transform: scale(0.6); } 82.62% { opacity: 1; transform: scale(1.12); } 83.81%, 96% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+@keyframes hx-act-5 { 0%, 71.43% { filter: none; } 73.33%, 83.33% { filter: drop-shadow(0 0 14px var(--accent)) brightness(1.25); } 85.71%, 100% { filter: none; } }
+@keyframes hx-built { 0% { --count: 0; } 10.48% { --count: 1; } 24.76% { --count: 2; } 39.05% { --count: 3; } 53.33% { --count: 4; } 67.62% { --count: 5; } 81.9% { --count: 6; } 97% { --count: 6; } 100% { --count: 0; } }
+@keyframes hx-ready { 0%, 85.71% { opacity: 0; transform: translateX(-50%) translateY(8px) scale(0.9); } 87.62%, 97% { opacity: 1; transform: translateX(-50%); } 100% { opacity: 0; } }
+@keyframes hx-sat-glow { 0%, 85.71% { filter: drop-shadow(0 0 10px color-mix(in oklab, var(--accent) 40%, transparent)); } 88.1%, 97% { filter: drop-shadow(0 0 30px var(--accent)); } 100% { filter: none; } }

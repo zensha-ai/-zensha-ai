@@ -14,6 +14,12 @@ import {
   Smartphone,
   Sparkles,
   Workflow,
+  Ruler,
+  Cpu,
+  Code2,
+  Camera,
+  Zap,
+  SatelliteDish,
 } from "lucide-react";
 import { brand } from "@/config/brand";
 import { TrafficVisual } from "@/components/work-visual";
@@ -137,134 +143,207 @@ export function PricingHeroScene({ plans }: { plans: { name: string; price: stri
   );
 }
 
-/* ── Student projects: a space mission — rocket, CubeSat, rover, ground station ── */
-const STARS = Array.from({ length: 46 }, (_, i) => ({
-  x: (i * 83.7) % 400,
-  y: (i * 47.3) % 270,
-  r: i % 5 === 0 ? 1.6 : 0.9,
-  d: (i % 7) * 0.45,
-}));
-const ORBIT = "M 236 82 A 96 30 -14 1 1 424 34 A 96 30 -14 1 1 236 82";
+/* ── Student projects: six robots take turns fixing one satellite ───────── */
+type BotLook = { head: string; face: string; beak: string; body: string; foot: string; ring: string; sitting?: boolean };
+
+function ServoBot({ look }: { look: BotLook }) {
+  const y = look.sitting ? 26 : 0;
+  return (
+    <svg viewBox="0 0 140 200" className="hx-bot-svg">
+      <ellipse cx="70" cy="194" rx="46" ry="5" className="hx-bot-shadow" />
+      {look.sitting ? (
+        <g>
+          <rect x="22" y="160" width="34" height="30" rx="8" fill={look.foot} />
+          <rect x="84" y="160" width="34" height="30" rx="8" fill={look.foot} />
+          <rect x="40" y="150" width="60" height="18" rx="5" className="hx-bot-frame" />
+          <circle cx="54" cy="159" r="4.5" className="hx-bot-servo" />
+          <circle cx="86" cy="159" r="4.5" className="hx-bot-servo" />
+        </g>
+      ) : (
+        <g className="hx-bot-legs">
+          <path d="M34 128 L50 122 L50 152 Z" fill={look.body} />
+          <rect x="46" y="140" width="12" height="32" rx="3" className="hx-bot-frame" />
+          <rect x="82" y="140" width="12" height="32" rx="3" className="hx-bot-frame" />
+          <circle cx="52" cy="156" r="3.5" className="hx-bot-servo" />
+          <circle cx="88" cy="156" r="3.5" className="hx-bot-servo" />
+          <rect x="34" y="170" width="34" height="14" rx="6" fill={look.foot} />
+          <rect x="72" y="170" width="34" height="14" rx="6" fill={look.foot} />
+          <rect x="34" y="181" width="34" height="5" rx="2" className="hx-bot-sole" />
+          <rect x="72" y="181" width="34" height="5" rx="2" className="hx-bot-sole" />
+        </g>
+      )}
+      <g transform={`translate(0 ${y})`}>
+        <rect x="40" y="122" width="60" height="20" rx="5" className="hx-bot-frame" />
+        <circle cx="54" cy="132" r="5" className="hx-bot-servo" />
+        <circle cx="86" cy="132" r="5" className="hx-bot-servo" />
+        <rect x="36" y="94" width="66" height="32" rx="13" fill={look.body} />
+        <circle cx="90" cy="104" r="2" className="hx-bot-dot" />
+        <circle cx="90" cy="112" r="2" className="hx-bot-dot" />
+        <g className="hx-bot-neck">
+          <rect x="56" y="62" width="18" height="36" rx="4" className="hx-bot-frame" />
+          <rect x="52" y="68" width="8" height="10" rx="2" className="hx-bot-servo-sq" />
+          <rect x="70" y="82" width="8" height="10" rx="2" className="hx-bot-servo-sq" />
+        </g>
+        <g className="hx-bot-head">
+          <path d="M26 54 L26 30 Q26 8 52 8 L104 10 Q124 11 124 32 L124 54 Z" fill={look.head} />
+          <rect x="40" y="16" width="70" height="34" rx="14" fill={look.face} />
+          <g className="hx-bot-eye">
+            <circle cx="94" cy="33" r="11" fill={look.ring} />
+            <circle cx="94" cy="33" r="5.5" className="hx-bot-pupil" />
+            <circle cx="96" cy="31" r="1.6" fill="#fff" />
+          </g>
+          <circle cx="110" cy="40" r="1.8" className="hx-bot-pupil" />
+          <rect x="22" y="52" width="104" height="8" rx="3" fill={look.beak} />
+          <g className="hx-bot-jaw">
+            <rect x="28" y="61" width="96" height="7" rx="3" fill={look.beak} />
+            <rect x="34" y="60" width="84" height="3" className="hx-bot-mouth" />
+          </g>
+        </g>
+      </g>
+    </svg>
+  );
+}
+
+const L = {
+  graphite: { head: "#34332e", face: "#c9c5b2", beak: "var(--accent)", body: "#34332e", foot: "var(--accent)", ring: "var(--accent)" },
+  red: { head: "var(--accent)", face: "#2b2a27", beak: "#fffbd4", body: "var(--accent)", foot: "#fffbd4", ring: "#fffbd4" },
+  cream: { head: "#fffbd4", face: "#c9c5b2", beak: "#ff7a3d", body: "#fffbd4", foot: "#ff9a3d", ring: "#ff9a3d" },
+  wine: { head: "var(--accent-2)", face: "#2b2a27", beak: "#fffbd4", body: "var(--accent-2)", foot: "#fffbd4", ring: "#fffbd4" },
+};
+
+const STARS = Array.from({ length: 40 }, (_, i) => ({ x: (i * 83.7) % 400, y: (i * 47.3) % 400, r: i % 5 === 0 ? 1.5 : 0.8, d: (i % 7) * 0.45 }));
+
+function Satellite() {
+  return (
+    <svg viewBox="0 0 220 130" className="hx-satbig">
+      {/* blueprint outlines of everything still to build */}
+      <g className="hx-ghost">
+        <rect x="84" y="30" width="52" height="64" rx="6" />
+        <rect x="6" y="46" width="62" height="30" rx="3" />
+        <rect x="152" y="46" width="62" height="30" rx="3" />
+        <path d="M96 22 Q 110 2 124 22 Z" />
+        <circle cx="110" cy="104" r="9" />
+      </g>
+      {/* 0 · architecture: body, frame and struts */}
+      <g className="hx-sp hx-sp-0">
+        <rect x="68" y="58" width="16" height="6" className="hx-sat-arm" />
+        <rect x="136" y="58" width="16" height="6" className="hx-sat-arm" />
+        <rect x="84" y="30" width="52" height="64" rx="6" className="hx-sat-core" />
+        <path d="M84 30 L136 94 M136 30 L84 94" className="hx-strut" />
+        <line x1="110" y1="22" x2="110" y2="30" className="hx-sat-mast" />
+      </g>
+      {/* 1 · hardware: circuit board */}
+      <g className="hx-sp hx-sp-1">
+        <rect x="90" y="36" width="40" height="20" rx="2" className="hx-pcb2" />
+        <path d="M93 41 H104 V46 H112 M93 51 H100 M126 40 V48 H118" className="hx-pcb2-trace" />
+        <rect x="104" y="40" width="10" height="9" rx="1" className="hx-pcb2-chip" />
+        <circle cx="124" cy="52" r="1.8" className="hx-beacon" />
+      </g>
+      {/* 2 · software: firmware screen */}
+      <g className="hx-sp hx-sp-2">
+        <rect x="90" y="60" width="40" height="26" rx="2" className="hx-screen" />
+        <path d="M94 66 H112 M94 71 H120 M94 76 H106" className="hx-code" />
+        <rect x="94" y="80" width="32" height="3" rx="1.5" className="hx-up-track" />
+        <rect x="94" y="80" width="32" height="3" rx="1.5" className="hx-up-fill" />
+      </g>
+      {/* 3 · camera */}
+      <g className="hx-sp hx-sp-3">
+        <rect x="102" y="94" width="16" height="6" className="hx-sat-arm" />
+        <circle cx="110" cy="104" r="9" className="hx-lens-ring" />
+        <circle cx="110" cy="104" r="4.5" className="hx-lens" />
+        <circle cx="112" cy="102" r="1.2" fill="#fffbd4" />
+      </g>
+      {/* 4 · power: solar panels */}
+      <g className="hx-sp hx-sp-4">
+        <rect x="6" y="46" width="62" height="30" rx="3" className="hx-panel" />
+        <path d="M21 46 V76 M37 46 V76 M53 46 V76 M6 61 H68" className="hx-panel-grid" />
+        <rect x="152" y="46" width="62" height="30" rx="3" className="hx-panel" />
+        <path d="M167 46 V76 M183 46 V76 M199 46 V76 M152 61 H214" className="hx-panel-grid" />
+      </g>
+      {/* 5 · comms: dish, beacon, signal */}
+      <g className="hx-sp hx-sp-5">
+        <path d="M96 22 Q 110 2 124 22 Z" className="hx-dish2" />
+        <circle cx="110" cy="13" r="2.4" className="hx-beacon" />
+        <path d="M128 8 Q 136 14 132 24 M134 2 Q 146 13 139 28" className="hx-sig2" />
+      </g>
+      {/* sparks while a robot is working */}
+      <g className="hx-fixsparks">
+        {[0, 1, 2, 3, 4].map((k) => (
+          <circle key={k} cx="110" cy="114" r="2" style={v({ "--sx": `${(k - 2) * 9}px`, "--sy": `${6 + (k % 2) * 6}px`, animationDelay: `${k * 0.12}s` })} />
+        ))}
+      </g>
+    </svg>
+  );
+}
 
 export function StudentHeroScene() {
   return (
     <Scene name="student">
-      <div className="hx-space">
+      <div className="hx-space hx-bay">
         <svg viewBox="0 0 400 400" className="hx-space-svg" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <radialGradient id="hx-planet" cx="35%" cy="30%" r="75%">
-              <stop offset="0" stopColor="#fffbd4" />
-              <stop offset="0.45" stopColor="#e8582f" />
-              <stop offset="1" stopColor="#2a0703" />
-            </radialGradient>
-            <linearGradient id="hx-ground" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor="#3a120a" />
-              <stop offset="1" stopColor="#080505" />
-            </linearGradient>
-            <linearGradient id="hx-flame" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor="#fffbd4" />
-              <stop offset="0.35" stopColor="#ffb347" />
-              <stop offset="1" stopColor="var(--accent)" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-
           {STARS.map((st, i) => (
             <circle key={i} cx={st.x} cy={st.y} r={st.r} className="hx-star" style={v({ animationDelay: `${st.d}s` })} />
           ))}
-
-          {/* planet + orbit + CubeSat */}
-          <path d={ORBIT} className="hx-orbit-path" />
-          <circle cx="330" cy="58" r="44" fill="url(#hx-planet)" className="hx-planet" />
-          <circle cx="316" cy="48" r="6" className="hx-crater" />
-          <circle cx="344" cy="72" r="4" className="hx-crater" />
-          <circle cx="338" cy="40" r="3" className="hx-crater" />
-          <g className="hx-sat">
-            <rect x="-6" y="-6" width="12" height="12" rx="1.5" className="hx-sat-body" />
-            <rect x="-22" y="-3.5" width="14" height="7" className="hx-sat-panel" />
-            <rect x="8" y="-3.5" width="14" height="7" className="hx-sat-panel" />
-            <line x1="0" y1="-6" x2="0" y2="-12" className="hx-sat-ant" />
-            <circle cx="0" cy="-13" r="1.8" className="hx-sat-led" />
-            <animateMotion dur="9s" repeatCount="indefinite" path={ORBIT} />
-          </g>
-
-          {/* ground */}
-          <path d="M0 318 Q 200 292 400 318 L400 400 L0 400 Z" fill="url(#hx-ground)" />
-          <path d="M0 318 Q 200 292 400 318" className="hx-horizon" />
-          <ellipse cx="150" cy="350" rx="18" ry="4" className="hx-crater-g" />
-          <ellipse cx="290" cy="370" rx="26" ry="5" className="hx-crater-g" />
-          <ellipse cx="60" cy="380" rx="14" ry="3" className="hx-crater-g" />
-
-          {/* launch pad + rocket */}
-          <g className="hx-pad">
-            <rect x="40" y="250" width="5" height="62" className="hx-tower" />
-            {[258, 272, 286, 300].map((y) => (
-              <line key={y} x1="45" y1={y} x2="58" y2={y} className="hx-tower-arm" />
-            ))}
-            <rect x="36" y="310" width="54" height="6" rx="2" className="hx-tower" />
-          </g>
-          <g className="hx-smoke">
-            {[0, 1, 2, 3].map((i) => (
-              <circle key={i} cx={58 + i * 9} cy="312" r="7" style={v({ animationDelay: `${i * 0.12}s` })} />
-            ))}
-          </g>
-          <g className="hx-rocket">
-            <path d="M64 262 Q 70 236 76 262 Z" className="hx-rk-nose" />
-            <rect x="64" y="262" width="12" height="40" rx="2" className="hx-rk-body" />
-            <rect x="64" y="276" width="12" height="4" className="hx-rk-band" />
-            <circle cx="70" cy="270" r="2.4" className="hx-rk-window" />
-            <path d="M64 290 L56 306 L64 302 Z" className="hx-rk-fin" />
-            <path d="M76 290 L84 306 L76 302 Z" className="hx-rk-fin" />
-            <path d="M65 304 Q 70 336 75 304 Z" fill="url(#hx-flame)" className="hx-rk-flame" />
-          </g>
-
-          {/* ground station */}
-          <g className="hx-station">
-            <rect x="338" y="296" width="4" height="18" className="hx-tower" />
-            <path d="M322 296 Q 340 312 358 290" className="hx-dish" />
-            <line x1="340" y1="300" x2="331" y2="285" className="hx-tower-arm" />
-            {[0, 1, 2].map((i) => (
-              <path key={i} d="M322 276 Q 326 266 336 264" className="hx-signal" style={v({ animationDelay: `${i * 0.5}s` })} />
-            ))}
-          </g>
-
-          {/* rover */}
-          <g className="hx-rover">
-            <rect x="0" y="0" width="34" height="11" rx="3" className="hx-rv-body" />
-            <rect x="2" y="-5" width="30" height="4" rx="1" className="hx-rv-panel" />
-            <line x1="26" y1="-5" x2="26" y2="-15" className="hx-tower-arm" />
-            <rect x="23" y="-20" width="8" height="6" rx="1.5" className="hx-rv-cam" />
-            <circle cx="30" cy="-17" r="1.3" className="hx-sat-led" />
-            {[5, 17, 29].map((x) => (
-              <g key={x} className="hx-wheel" style={v({ transformOrigin: `${x}px 14px` })}>
-                <circle cx={x} cy="14" r="5.5" className="hx-rv-wheel" />
-                <line x1={x - 5} y1="14" x2={x + 5} y2="14" className="hx-rv-spoke" />
-              </g>
-            ))}
-          </g>
         </svg>
-
-        <div className="hx-mission">
-          <span className="hx-mission-head">
-            <i /> Mission log <b className="hx-tminus" />
-          </span>
-          <span className="hx-mission-row">ALT <b className="gs-count hx-alt" style={v({ "--to": 124 })} /> km</span>
-          <span className="hx-mission-row">VEL <b>7.6</b> km/s</span>
-          <span className="hx-mission-row">
-            LINK
-            <span className="hx-bars-sig">
-              <i /><i /><i /><i />
-            </span>
-          </span>
+      </div>
+      <div className="hx-ring hx-satring">
+        <span className="hx-ring-line" />
+        <span className="hx-ring-line hx-ring-line-2" />
+        <div className="hx-spin">
+            <div className="hx-slot" style={v({ "--a": "0deg" })}>
+              <span className="hx-beam" />
+              <div className="hx-face hx-fxr hx-fxr-0" style={v({ "--w": "17cqw", "--n": 0 })}>
+                <div className="hx-rb-inner"><ServoBot look={L.graphite} /></div>
+                <span className="hx-fxr-tag"><Ruler className="size-3" /> Max · Architecture</span>
+              </div>
+            </div>
+            <div className="hx-slot" style={v({ "--a": "60deg" })}>
+              <span className="hx-beam" />
+              <div className="hx-face hx-fxr hx-fxr-1" style={v({ "--w": "15cqw", "--n": 1 })}>
+                <div className="hx-rb-inner"><ServoBot look={L.wine} /></div>
+                <span className="hx-fxr-tag"><Cpu className="size-3" /> Nova · Hardware</span>
+              </div>
+            </div>
+            <div className="hx-slot" style={v({ "--a": "120deg" })}>
+              <span className="hx-beam" />
+              <div className="hx-face hx-fxr hx-fxr-2" style={v({ "--w": "13cqw", "--n": 2 })}>
+                <div className="hx-rb-inner"><ServoBot look={L.red} /></div>
+                <span className="hx-fxr-tag"><Code2 className="size-3" /> Ruby · Software</span>
+              </div>
+            </div>
+            <div className="hx-slot" style={v({ "--a": "180deg" })}>
+              <span className="hx-beam" />
+              <div className="hx-face hx-fxr hx-fxr-3" style={v({ "--w": "10cqw", "--n": 3 })}>
+                <div className="hx-rb-inner"><ServoBot look={L.cream} /></div>
+                <span className="hx-fxr-tag"><Camera className="size-3" /> Pixel · Camera</span>
+              </div>
+            </div>
+            <div className="hx-slot" style={v({ "--a": "240deg" })}>
+              <span className="hx-beam" />
+              <div className="hx-face hx-fxr hx-fxr-4" style={v({ "--w": "12cqw", "--n": 4 })}>
+                <div className="hx-rb-inner"><ServoBot look={L.cream} /></div>
+                <span className="hx-fxr-tag"><Zap className="size-3" /> Bolt · Power</span>
+              </div>
+            </div>
+            <div className="hx-slot" style={v({ "--a": "300deg" })}>
+              <span className="hx-beam" />
+              <div className="hx-face hx-fxr hx-fxr-5" style={v({ "--w": "9cqw", "--n": 5 })}>
+                <div className="hx-rb-inner"><ServoBot look={L.red} /></div>
+                <span className="hx-fxr-tag"><SatelliteDish className="size-3" /> Chip · Comms</span>
+              </div>
+            </div>
         </div>
-        <div className="hx-legend">
-          <span>Rocket</span>
-          <span>CubeSat</span>
-          <span>Rover</span>
-          <span>Ground station</span>
+        <div className="hx-core3d">
+          <div className="hx-satcore">
+            <Satellite />
+          </div>
         </div>
       </div>
-      <Toast className="hx-st-t">
-        <Check className="size-3 text-accent" strokeWidth={3} /> Demo · parts list · code
+      <span className="hx-build">
+        Parts <b className="gs-count hx-built" style={v({ "--to": 6 })} />/6
+      </span>
+      <Toast className="hx-ready">
+        <Check className="size-3 text-accent" strokeWidth={3} /> Satellite ready — mission go!
       </Toast>
     </Scene>
   );
