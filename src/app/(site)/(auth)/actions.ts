@@ -27,6 +27,15 @@ export async function signIn(_: AuthState, form: FormData): Promise<AuthState> {
   const supabase = await createSupabaseServerClient();
   if (!supabase) return { error: NOT_CONFIGURED };
   const { error } = await supabase.auth.signInWithPassword({ email: parsed.data.email, password: parsed.data.password });
+  if (error?.code === "email_not_confirmed") {
+    // The account exists but was never confirmed: send a fresh link and say so plainly.
+    await supabase.auth.resend({
+      type: "signup",
+      email: parsed.data.email,
+      options: { emailRedirectTo: `${brand.siteUrl}/auth/callback?next=${encodeURIComponent(safeNext(parsed.data.next))}` },
+    });
+    return { error: "Your email isn't confirmed yet. We've sent a new confirmation link — open it from your inbox, then sign in." };
+  }
   if (error) return { error: "We couldn't sign you in with those details. Check your email and password and try again." };
   redirect(safeNext(parsed.data.next));
 }
