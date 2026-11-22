@@ -135,6 +135,8 @@ export function OfferForm({ initial, samples }: { initial: Offer; samples: { nam
   const [state, action, pending] = useActionState(saveOffer, {} as FormState);
   const v = (state.values ?? initial) as Record<string, string | boolean | number>;
   const [percent, setPercent] = useState(Number(v.percent) || 0);
+  // A brand-new offer (nothing saved yet) starts switched on, so saving it makes it live.
+  const isNew = !state.values && !initial.startDate;
   const err = state.errors ?? {};
   const field = (id: string, label: string, input: ReactNode, help?: string) => (
     <div>
@@ -149,7 +151,7 @@ export function OfferForm({ initial, samples }: { initial: Offer; samples: { nam
   return (
     <form action={action} noValidate className="space-y-6" key={JSON.stringify(state.values ?? {})}>
       <label className="flex items-center gap-3 rounded-xl border border-line-strong bg-surface p-4">
-        <input type="checkbox" name="enabled" defaultChecked={Boolean(v.enabled)} className="size-5 accent-[var(--accent)]" />
+        <input type="checkbox" name="enabled" defaultChecked={isNew || Boolean(v.enabled)} className="size-5 accent-[var(--accent)]" />
         <span>
           <span className="block font-medium">Offer is on</span>
           <span className="block text-xs text-muted">Untick to show regular prices everywhere, without losing these settings.</span>
@@ -159,7 +161,7 @@ export function OfferForm({ initial, samples }: { initial: Offer; samples: { nam
         {field(
           "percent",
           "Discount %",
-          <input id="o-percent" name="percent" type="number" min={1} max={90} step={1} defaultValue={String(v.percent ?? "")} onChange={(e) => setPercent(Number(e.target.value) || 0)} aria-invalid={err.percent ? true : undefined} aria-describedby="o-percent-err" className={inputCls} />,
+          <input id="o-percent" name="percent" type="number" min={1} max={90} step={1} defaultValue={Number(v.percent) > 0 ? String(v.percent) : ""} onChange={(e) => setPercent(Number(e.target.value) || 0)} aria-invalid={err.percent ? true : undefined} aria-describedby="o-percent-err" className={inputCls} />,
           "1 to 90. Taken off every regular price.",
         )}
         {field("startDate", "Start date", <input id="o-startDate" name="startDate" type="date" defaultValue={String(v.startDate ?? "")} aria-invalid={err.startDate ? true : undefined} aria-describedby="o-startDate-err" className={inputCls} />, "Starts 00:00 India time.")}
