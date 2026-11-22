@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Fragment, type ComponentProps, type ReactNode } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { brand } from "@/config/brand";
 import { NetworkField } from "@/components/effects";
 
 export const cx = (...c: (string | false | null | undefined)[]) => c.filter(Boolean).join(" ");
@@ -116,8 +117,8 @@ export function PageHero({
         <div aria-hidden className="aurora" />
         <div aria-hidden className="grid-paper pointer-events-none absolute inset-0 opacity-60" />
         <NetworkField className="absolute inset-0 h-full w-full opacity-60" />
-        <div className="container-z relative grid flex-1 items-center gap-12 pb-16 pt-12 sm:pt-16 lg:grid-cols-12 lg:gap-8 lg:py-12">
-          <div className="lg:col-span-6">
+        <div className="container-z relative grid flex-1 items-center gap-12 pb-16 pt-12 sm:pt-16 lg:grid-cols-12 lg:py-12">
+          <div className="lg:col-span-7">
             <p className="eyebrow inline-flex items-center gap-2.5 rounded-full border border-line-strong bg-surface/70 px-3 py-1.5 backdrop-blur">
               <span aria-hidden className="live-dot size-1.5 rounded-full bg-accent-2" />
               {eyebrow}
@@ -135,8 +136,12 @@ export function PageHero({
             )}
             {children}
           </div>
-          <div className="fade-up mx-auto w-full max-w-xl lg:col-span-6 lg:max-w-none xl:-mr-8" style={{ "--d": "0.2s" } as React.CSSProperties}>
+          <div className="fade-up mx-auto w-full max-w-md lg:col-span-5 lg:max-w-none" style={{ "--d": "0.2s" } as React.CSSProperties}>
             <div className="flex items-center justify-center">{visual}</div>
+            <p className="mt-4 flex items-center justify-between font-mono text-xs text-muted">
+              <span>{brand.brandName}</span>
+              <span>{brand.descriptor}</span>
+            </p>
           </div>
         </div>
         {strip && <div className="relative border-t border-line bg-paper/40 backdrop-blur">{strip}</div>}

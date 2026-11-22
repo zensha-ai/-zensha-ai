@@ -1585,3 +1585,28 @@ html.lenis, html.lenis body { height: auto; }
 @keyframes hx-built { 0% { --count: 0; } 10.48% { --count: 1; } 24.76% { --count: 2; } 39.05% { --count: 3; } 53.33% { --count: 4; } 67.62% { --count: 5; } 81.9% { --count: 6; } 97% { --count: 6; } 100% { --count: 0; } }
 @keyframes hx-ready { 0%, 85.71% { opacity: 0; transform: translateX(-50%) translateY(8px) scale(0.9); } 87.62%, 97% { opacity: 1; transform: translateX(-50%); } 100% { opacity: 0; } }
 @keyframes hx-sat-glow { 0%, 85.71% { filter: drop-shadow(0 0 10px color-mix(in oklab, var(--accent) 40%, transparent)); } 88.1%, 97% { filter: drop-shadow(0 0 30px var(--accent)); } 100% { filter: none; } }
+
+/* Page heroes (all pages except Home): one consistent heading size beside the scene */
+.hero-title { font-size: clamp(2.4rem, 4.6vw, 4.5rem); line-height: 1.02; max-width: 13ch; }
+@media (min-width: 1024px) { .hero-title { max-width: 12ch; } }
+
+/* Student projects: no box — the satellite and robots float bigger in the hero */
+.hx-student .hx-bay { border: 0; box-shadow: none; background: radial-gradient(60% 55% at 50% 52%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 70%); border-radius: 0; overflow: visible; }
+.hx-student .hx-space-svg { -webkit-mask-image: radial-gradient(closest-side, #000 60%, transparent); mask-image: radial-gradient(closest-side, #000 60%, transparent); }
+.hx-student .hx-satcore { width: 76cqw; transform: translate(-50%, -72%); }
+.hx-student .hx-satring .hx-slot { transform: rotateZ(var(--a)) translateX(44cqw); }
+.hx-student .hx-satring .hx-ring-line { width: 88cqw; height: 88cqw; }
+.hx-student .hx-beam { left: -44cqw; width: 44cqw; }
+.hx-student .hx-fxr { width: calc(var(--w) * 1.25); }
+.hx-student .hx-fxr-tag { font-size: 1.9cqw; }
+.hx-student .hx-satring { top: 54%; }
+
+/* Match the Home hero: scenes sit in the same grid and glow, no heavy halo */
+.hx::before { content: none; }
+.hx-glow { inset: 22%; opacity: 0.45; filter: blur(40px); }
+.hx-win, .hx-plan, .hx-orbit-card, .hx-steps, .hx-inbox, .hx-pw2 {
+  border-color: var(--line-strong);
+  box-shadow: 0 30px 60px -36px rgba(0, 0, 0, 0.9), 0 0 40px -26px color-mix(in oklab, var(--accent) 70%, transparent);
+}
+.hx-toast { box-shadow: 0 12px 30px -14px rgba(0, 0, 0, 0.8); }
+@media (min-width: 1024px) { .hx { width: min(100%, calc(100svh - 11rem)); } }
