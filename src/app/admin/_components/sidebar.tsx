@@ -17,6 +17,7 @@ const groups = [
       { href: "/admin/work_items", label: "Our Work" },
       { href: "/admin/faqs", label: "FAQs" },
       { href: "/admin/settings", label: "Homepage, contact & SEO" },
+      { href: "/admin/offer", label: "Offers & discounts" },
       { href: "/admin/media", label: "Media library" },
     ],
   },

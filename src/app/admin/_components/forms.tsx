@@ -1,8 +1,9 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState, type ReactNode } from "react";
 import type { FormState } from "@/lib/admin/fields";
-import { grantEntitlement, saveSetting, seedFromCode } from "@/lib/admin/actions";
+import { grantEntitlement, saveOffer, saveSetting, seedFromCode } from "@/lib/admin/actions";
+import { discountedPrice, type Offer } from "@/content/offer";
 import { Button, cx } from "@/components/ui";
 
 const inputCls =
@@ -122,6 +123,68 @@ export function SettingForm({ initialKey, initialValue }: { initialKey: string; 
       <div className="flex flex-wrap items-center gap-3">
         <Button type="submit" disabled={pending}>
           {pending ? "Saving…" : "Save setting"}
+        </Button>
+        <Message state={state} />
+      </div>
+    </form>
+  );
+}
+
+/** Admin → Offers & discounts: % off, start and end dates, on/off. */
+export function OfferForm({ initial, samples }: { initial: Offer; samples: { name: string; price: string }[] }) {
+  const [state, action, pending] = useActionState(saveOffer, {} as FormState);
+  const v = (state.values ?? initial) as Record<string, string | boolean | number>;
+  const [percent, setPercent] = useState(Number(v.percent) || 0);
+  const err = state.errors ?? {};
+  const field = (id: string, label: string, input: ReactNode, help?: string) => (
+    <div>
+      <label htmlFor={"o-" + id} className="mb-1.5 block text-sm font-medium">
+        {label}
+      </label>
+      {input}
+      {help && <p className="mt-1 text-xs text-muted">{help}</p>}
+      <FieldError id={"o-" + id + "-err"} msg={err[id]} />
+    </div>
+  );
+  return (
+    <form action={action} noValidate className="space-y-6" key={JSON.stringify(state.values ?? {})}>
+      <label className="flex items-center gap-3 rounded-xl border border-line-strong bg-surface p-4">
+        <input type="checkbox" name="enabled" defaultChecked={Boolean(v.enabled)} className="size-5 accent-[var(--accent)]" />
+        <span>
+          <span className="block font-medium">Offer is on</span>
+          <span className="block text-xs text-muted">Untick to show regular prices everywhere, without losing these settings.</span>
+        </span>
+      </label>
+      <div className="grid gap-5 sm:grid-cols-3">
+        {field(
+          "percent",
+          "Discount %",
+          <input id="o-percent" name="percent" type="number" min={1} max={90} step={1} defaultValue={String(v.percent ?? "")} onChange={(e) => setPercent(Number(e.target.value) || 0)} aria-invalid={err.percent ? true : undefined} aria-describedby="o-percent-err" className={inputCls} />,
+          "1 to 90. Taken off every regular price.",
+        )}
+        {field("startDate", "Start date", <input id="o-startDate" name="startDate" type="date" defaultValue={String(v.startDate ?? "")} aria-invalid={err.startDate ? true : undefined} aria-describedby="o-startDate-err" className={inputCls} />, "Starts 00:00 India time.")}
+        {field("endDate", "End date", <input id="o-endDate" name="endDate" type="date" defaultValue={String(v.endDate ?? "")} aria-invalid={err.endDate ? true : undefined} aria-describedby="o-endDate-err" className={inputCls} />, "Ends 23:59 India time.")}
+      </div>
+      {field("label", "Offer name (optional)", <input id="o-label" name="label" maxLength={40} placeholder="Launch offer" defaultValue={String(v.label ?? "")} aria-describedby="o-label-err" className={inputCls} />)}
+      {percent >= 1 && percent <= 90 && (
+        <div className="rounded-xl border border-line bg-surface p-4">
+          <p className="eyebrow">Preview at {percent}% off</p>
+          <ul className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
+            {samples.map((s) => (
+              <li key={s.name} className="flex justify-between gap-3">
+                <span className="text-ink-2">{s.name}</span>
+                <span>
+                  <s className="mr-2 text-muted">{s.price}</s>
+                  <b>{discountedPrice(s.price, percent)}</b>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <div className="flex flex-wrap items-center gap-3">
+        <Button type="submit" disabled={pending}>
+          {pending ? "Saving…" : "Save offer"}
         </Button>
         <Message state={state} />
       </div>

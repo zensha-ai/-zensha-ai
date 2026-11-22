@@ -17,10 +17,11 @@ import {
 } from "@/content/pricing";
 import { faqJsonLd, pageMetadata } from "@/lib/seo";
 import { ButtonLink, CtaBand, FaqList, PageHero, Section, SectionHeader } from "@/components/ui";
-import { OfferNote, WasPrice } from "@/components/offer";
+import { OfferNote, OfferPrice, WasPrice } from "@/components/offer";
+import { applyOffer } from "@/content/offer";
 import { PricingCards } from "@/components/pricing";
 import { AllServicePrices } from "@/components/service-price";
-import { getServices } from "@/lib/data/catalog";
+import { getOffer, getServices } from "@/lib/data/catalog";
 import { IconTile, tileTints } from "@/components/icon-tile";
 import { JsonLd } from "@/components/json-ld";
 import { Reveal } from "@/components/motion";
@@ -33,11 +34,11 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default async function PricingPage() {
-  const services = await getServices();
+  const [services, offer] = await Promise.all([getServices(), getOffer()]);
   return (
     <>
       <PageHero
-        visual={<PricingRingVisual price={websitePlans[0].price} plans={websitePlans} />}
+        visual={<PricingRingVisual price={applyOffer(websitePlans[0].price, offer).now} plans={websitePlans} />}
         eyebrow="Clear starting prices · honest final proposals"
         title="Simple, honest pricing."
         text="Clear website packages — or a custom quote for apps, AI and automation."
@@ -118,7 +119,7 @@ export default async function PricingPage() {
                       {p.name}
                     </span>
                     <WasPrice price={p.price} className="mt-1 block text-xs font-normal" />
-                    <span className="block font-[family-name:var(--font-display)] text-lg font-semibold">{p.price}</span>
+                    <span className="block font-[family-name:var(--font-display)] text-lg font-semibold"><OfferPrice price={p.price} /></span>
                     {p.popular && <span className="mt-1 inline-block font-mono text-[0.6rem] uppercase tracking-[0.12em] text-accent">Most popular</span>}
                   </th>
                 ))}

@@ -14,7 +14,7 @@ import { JsonLd } from "@/components/json-ld";
 import { PricingCards } from "@/components/pricing";
 import { ServicePricePanel } from "@/components/service-price";
 import { priceLabel, servicePricing } from "@/content/service-pricing";
-import { OfferNote, OfferTag, WasPrice } from "@/components/offer";
+import { OfferNote, OfferTag, PriceLabel, WasPrice } from "@/components/offer";
 
 export const revalidate = 300;
 export const dynamicParams = true;
@@ -81,7 +81,9 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
                 <span className="inline-flex flex-wrap items-center justify-end gap-2 font-semibold">
                   <OfferTag />
                   <WasPrice price={servicePricing[service.slug].from} className="font-normal" />
-                  <span data-countup>{priceLabel(service.slug)}</span>
+                  <span data-countup>
+                    <PriceLabel slug={service.slug} />
+                  </span>
                 </span>
               </a>
             )}

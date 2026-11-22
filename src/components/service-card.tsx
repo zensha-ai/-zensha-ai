@@ -6,7 +6,7 @@ import type { Service } from "@/content/types";
 import { ServiceVisual } from "@/components/service-visual";
 import { cx } from "@/components/ui";
 import { priceLabel, servicePricing } from "@/content/service-pricing";
-import { OfferTag, WasPrice } from "@/components/offer";
+import { OfferTag, PriceLabel, WasPrice } from "@/components/offer";
 
 /* ── Reference-style service cards (Services page + service pages) ─────── */
 
@@ -49,7 +49,9 @@ export function ServiceTile({ service: s, wide = false }: { service: Service; wi
             <OfferTag className="bg-[#fffbd4] text-black" />
             <span className="rounded-full bg-accent px-3 py-1 font-mono text-[0.65rem] text-on-accent">
               <WasPrice price={servicePricing[s.slug].from} className="mr-1.5 text-on-accent/70 decoration-current" />
-              <span data-countup>{priceLabel(s.slug)}</span>
+              <span data-countup>
+                <PriceLabel slug={s.slug} />
+              </span>
             </span>
           </span>
         )}

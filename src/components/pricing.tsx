@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 import { ArrowUpRight, Briefcase, Building2, Check, Gem, Rocket, Sparkles } from "lucide-react";
 import { pricingNote, websitePlans, type Plan } from "@/content/pricing";
 import { ButtonLink, cx } from "@/components/ui";
-import { OfferTag, WasPrice } from "@/components/offer";
+import { OfferPrice, OfferTag, WasPrice } from "@/components/offer";
 
 const icons = { rocket: Rocket, briefcase: Briefcase, gem: Gem, building: Building2 } as const;
 
@@ -65,7 +65,7 @@ function PlanCard({ plan: p, bobDelay }: { plan: Plan; bobDelay: number }) {
         </p>
         <p className="relative mt-1 flex items-baseline gap-2">
           <span data-countup className="font-[family-name:var(--font-display)] text-4xl font-semibold tracking-tight" style={{ color: p.tint }}>
-            {p.price}
+            <OfferPrice price={p.price} />
           </span>
         </p>
         <span className="relative mt-3 inline-flex w-fit rounded-full border border-line-strong px-3 py-1 font-mono text-xs text-ink-2">{p.pages}</span>

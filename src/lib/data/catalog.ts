@@ -1,4 +1,6 @@
 import "server-only";
+import { cache } from "react";
+import { OFFER_KEY, parseOffer, type Offer } from "@/content/offer";
 import { services as seedServices } from "@/content/services";
 import { generalFaqs } from "@/content/site";
 import { builtInWork, getBuiltInWork } from "@/content/work";
@@ -42,6 +44,9 @@ export async function getSetting<T>(key: string): Promise<T | null> {
   const { data } = await db.from("site_settings").select("value").eq("key", key).maybeSingle();
   return (data?.value as T) ?? null;
 }
+
+/** Current site-wide offer from Admin → Offers & discounts (no offer when unset). */
+export const getOffer = cache(async (): Promise<Offer> => parseOffer(await getSetting<unknown>(OFFER_KEY)));
 
 export async function getProducts(): Promise<Product[]> {
   const db = createSupabasePublicClient();

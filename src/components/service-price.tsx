@@ -5,7 +5,7 @@ import type { Service } from "@/content/types";
 import { servicePricing } from "@/content/service-pricing";
 import { serviceTints } from "@/components/service-visual";
 import { ServiceIcon } from "@/components/service-icon";
-import { OfferTag, WasPrice } from "@/components/offer";
+import { OfferPrice, OfferTag, WasPrice } from "@/components/offer";
 
 /** Large "starting from" price panel for a single service page. */
 export function ServicePricePanel({ service }: { service: Service }) {
@@ -24,7 +24,7 @@ export function ServicePricePanel({ service }: { service: Service }) {
           <WasPrice price={p.from} className="mt-3 block text-2xl" />
           <p className="mt-1 flex items-baseline gap-1">
             <span data-countup className="font-[family-name:var(--font-display)] text-5xl font-semibold tracking-tight sm:text-6xl" style={{ color: tint }}>
-              {p.from}
+              <OfferPrice price={p.from} />
             </span>
             {p.unit && <span className="text-lg text-muted">{p.unit}</span>}
           </p>
@@ -84,7 +84,7 @@ export function AllServicePrices({ services }: { services: Service[] }) {
                     From <WasPrice price={p.from} className="normal-case tracking-normal" />
                   </span>
                   <span className="font-[family-name:var(--font-display)] text-xl font-semibold" style={{ color: tint }}>
-                    {p.from}
+                    <OfferPrice price={p.from} />
                     {p.unit && <span className="text-sm font-normal text-muted">{p.unit}</span>}
                   </span>
                 </span>

@@ -9,6 +9,7 @@ import { createSupabaseAdminClient } from "@/lib/supabase/server";
 import { services as codeServices } from "@/content/services";
 import { generalFaqs } from "@/content/site";
 import { nest, parseForm, type FormState } from "./fields";
+import { OFFER_KEY, type Offer } from "@/content/offer";
 import { getResource } from "./resources";
 
 // ---------------------------------------------------------------------------
@@ -487,4 +488,43 @@ export async function deleteSetting(formData: FormData): Promise<void> {
   await db.from("site_settings").delete().eq("key", key);
   revalidatePath("/", "layout");
   redirect(back("/admin/settings", { deleted: "1" }));
+}
+
+// ---------------------------------------------------------------------------
+// Site-wide offer (Admin → Offers & discounts)
+// ---------------------------------------------------------------------------
+const offerFormSchema = z
+  .object({
+    enabled: z.boolean(),
+    percent: z.coerce.number().int("Use a whole number.").min(1, "At least 1%.").max(90, "At most 90%."),
+    startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Pick a start date."),
+    endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Pick an end date."),
+    label: z.string().trim().max(40, "Keep it under 40 characters."),
+  })
+  .refine((o) => o.endDate >= o.startDate, { path: ["endDate"], message: "The end date must be on or after the start date." });
+
+export async function saveOffer(_prev: FormState, formData: FormData): Promise<FormState> {
+  const { db } = await adminDb();
+  const values = {
+    enabled: formData.get("enabled") === "on",
+    percent: String(formData.get("percent") ?? ""),
+    startDate: String(formData.get("startDate") ?? ""),
+    endDate: String(formData.get("endDate") ?? ""),
+    label: String(formData.get("label") ?? ""),
+  };
+  const r = offerFormSchema.safeParse(values);
+  if (!r.success) {
+    const errors: Record<string, string> = {};
+    for (const i of r.error.issues) errors[String(i.path[0] ?? "form")] ??= i.message;
+    return { ok: false, errors, values };
+  }
+  const value: Offer = r.data;
+  const { error } = await db.from("site_settings").upsert({ key: OFFER_KEY, value }, { onConflict: "key" });
+  if (error) return { ok: false, message: dbErrorMessage(error).message, values };
+  revalidatePath("/", "layout");
+  return {
+    ok: true,
+    message: value.enabled ? "Offer saved. Prices update on the site within a few minutes." : "Offer switched off. Regular prices are shown.",
+    values: { ...values },
+  };
 }
