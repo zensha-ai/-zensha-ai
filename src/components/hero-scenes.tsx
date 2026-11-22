@@ -137,150 +137,132 @@ export function PricingHeroScene({ plans }: { plans: { name: string; price: stri
   );
 }
 
-/* ── Student projects: four little servo robots chatting about a build ───── */
-type BotLook = { head: string; face: string; beak: string; body: string; foot: string; ring: string; sitting?: boolean };
-
-function ServoBot({ look }: { look: BotLook }) {
-  const y = look.sitting ? 26 : 0;
-  return (
-    <svg viewBox="0 0 140 200" className="hx-bot-svg">
-      <ellipse cx="70" cy="194" rx="46" ry="5" className="hx-bot-shadow" />
-      {look.sitting ? (
-        <g>
-          <rect x="22" y="160" width="34" height="30" rx="8" fill={look.foot} />
-          <rect x="84" y="160" width="34" height="30" rx="8" fill={look.foot} />
-          <rect x="40" y="150" width="60" height="18" rx="5" className="hx-bot-frame" />
-          <circle cx="54" cy="159" r="4.5" className="hx-bot-servo" />
-          <circle cx="86" cy="159" r="4.5" className="hx-bot-servo" />
-        </g>
-      ) : (
-        <g className="hx-bot-legs">
-          <path d="M34 128 L50 122 L50 152 Z" fill={look.body} />
-          <rect x="46" y="140" width="12" height="32" rx="3" className="hx-bot-frame" />
-          <rect x="82" y="140" width="12" height="32" rx="3" className="hx-bot-frame" />
-          <circle cx="52" cy="156" r="3.5" className="hx-bot-servo" />
-          <circle cx="88" cy="156" r="3.5" className="hx-bot-servo" />
-          <rect x="34" y="170" width="34" height="14" rx="6" fill={look.foot} />
-          <rect x="72" y="170" width="34" height="14" rx="6" fill={look.foot} />
-          <rect x="34" y="181" width="34" height="5" rx="2" className="hx-bot-sole" />
-          <rect x="72" y="181" width="34" height="5" rx="2" className="hx-bot-sole" />
-        </g>
-      )}
-      <g transform={`translate(0 ${y})`}>
-        <rect x="40" y="122" width="60" height="20" rx="5" className="hx-bot-frame" />
-        <circle cx="54" cy="132" r="5" className="hx-bot-servo" />
-        <circle cx="86" cy="132" r="5" className="hx-bot-servo" />
-        <rect x="36" y="94" width="66" height="32" rx="13" fill={look.body} />
-        <circle cx="90" cy="104" r="2" className="hx-bot-dot" />
-        <circle cx="90" cy="112" r="2" className="hx-bot-dot" />
-        <g className="hx-bot-neck">
-          <rect x="56" y="62" width="18" height="36" rx="4" className="hx-bot-frame" />
-          <rect x="52" y="68" width="8" height="10" rx="2" className="hx-bot-servo-sq" />
-          <rect x="70" y="82" width="8" height="10" rx="2" className="hx-bot-servo-sq" />
-        </g>
-        <g className="hx-bot-head">
-          <path d="M26 54 L26 30 Q26 8 52 8 L104 10 Q124 11 124 32 L124 54 Z" fill={look.head} />
-          <rect x="40" y="16" width="70" height="34" rx="14" fill={look.face} />
-          <g className="hx-bot-eye">
-            <circle cx="94" cy="33" r="11" fill={look.ring} />
-            <circle cx="94" cy="33" r="5.5" className="hx-bot-pupil" />
-            <circle cx="96" cy="31" r="1.6" fill="#fff" />
-          </g>
-          <circle cx="110" cy="40" r="1.8" className="hx-bot-pupil" />
-          <rect x="22" y="52" width="104" height="8" rx="3" fill={look.beak} />
-          <g className="hx-bot-jaw">
-            <rect x="28" y="61" width="96" height="7" rx="3" fill={look.beak} />
-            <rect x="34" y="60" width="84" height="3" className="hx-bot-mouth" />
-          </g>
-        </g>
-      </g>
-    </svg>
-  );
-}
-
-const L = {
-  graphite: { head: "#34332e", face: "#c9c5b2", beak: "var(--accent)", body: "#34332e", foot: "var(--accent)", ring: "var(--accent)" },
-  red: { head: "var(--accent)", face: "#2b2a27", beak: "#fffbd4", body: "var(--accent)", foot: "#fffbd4", ring: "#fffbd4" },
-  cream: { head: "#fffbd4", face: "#c9c5b2", beak: "#ff7a3d", body: "#fffbd4", foot: "#ff9a3d", ring: "#ff9a3d" },
-  wine: { head: "var(--accent-2)", face: "#2b2a27", beak: "#fffbd4", body: "var(--accent-2)", foot: "#fffbd4", ring: "#fffbd4" },
-};
-
-function Pcb({ className }: { className: string }) {
-  return (
-    <svg viewBox="0 0 60 40" className={`hx-pcb ${className}`}>
-      <rect x="1" y="1" width="58" height="38" rx="4" className="hx-pcb-base" />
-      <path d="M8 10 H26 V20 H40 M8 30 H20 V24 M52 8 V18 H44 M52 32 H36 V26" className="hx-pcb-trace" />
-      <rect x="24" y="14" width="14" height="12" rx="2" className="hx-pcb-chip" />
-      <circle cx="50" cy="30" r="3" className="hx-pcb-led" />
-    </svg>
-  );
-}
-
-function Battery({ className }: { className: string }) {
-  return (
-    <span className={`hx-batt ${className}`}>
-      <i className="hx-batt-fill" />
-      <b>+</b>
-    </span>
-  );
-}
+/* ── Student projects: a space mission — rocket, CubeSat, rover, ground station ── */
+const STARS = Array.from({ length: 46 }, (_, i) => ({
+  x: (i * 83.7) % 400,
+  y: (i * 47.3) % 270,
+  r: i % 5 === 0 ? 1.6 : 0.9,
+  d: (i % 7) * 0.45,
+}));
+const ORBIT = "M 236 82 A 96 30 -14 1 1 424 34 A 96 30 -14 1 1 236 82";
 
 export function StudentHeroScene() {
   return (
     <Scene name="student">
-      <div className="hx-room">
-        <div className="hx-window"><i /></div>
-        <span className="hx-neon">ROBOT LAB</span>
-        <div className="hx-shelf">
-          <i /> <i /> <i />
-        </div>
-        <div className="hx-floor" />
-        <div className="hx-table" />
-        <div className="hx-laptop">
-          <span className="hx-laptop-screen">
-            <i /> <i /> <i />
+      <div className="hx-space">
+        <svg viewBox="0 0 400 400" className="hx-space-svg" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <radialGradient id="hx-planet" cx="35%" cy="30%" r="75%">
+              <stop offset="0" stopColor="#fffbd4" />
+              <stop offset="0.45" stopColor="#e8582f" />
+              <stop offset="1" stopColor="#2a0703" />
+            </radialGradient>
+            <linearGradient id="hx-ground" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#3a120a" />
+              <stop offset="1" stopColor="#080505" />
+            </linearGradient>
+            <linearGradient id="hx-flame" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#fffbd4" />
+              <stop offset="0.35" stopColor="#ffb347" />
+              <stop offset="1" stopColor="var(--accent)" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+
+          {STARS.map((st, i) => (
+            <circle key={i} cx={st.x} cy={st.y} r={st.r} className="hx-star" style={v({ animationDelay: `${st.d}s` })} />
+          ))}
+
+          {/* planet + orbit + CubeSat */}
+          <path d={ORBIT} className="hx-orbit-path" />
+          <circle cx="330" cy="58" r="44" fill="url(#hx-planet)" className="hx-planet" />
+          <circle cx="316" cy="48" r="6" className="hx-crater" />
+          <circle cx="344" cy="72" r="4" className="hx-crater" />
+          <circle cx="338" cy="40" r="3" className="hx-crater" />
+          <g className="hx-sat">
+            <rect x="-6" y="-6" width="12" height="12" rx="1.5" className="hx-sat-body" />
+            <rect x="-22" y="-3.5" width="14" height="7" className="hx-sat-panel" />
+            <rect x="8" y="-3.5" width="14" height="7" className="hx-sat-panel" />
+            <line x1="0" y1="-6" x2="0" y2="-12" className="hx-sat-ant" />
+            <circle cx="0" cy="-13" r="1.8" className="hx-sat-led" />
+            <animateMotion dur="9s" repeatCount="indefinite" path={ORBIT} />
+          </g>
+
+          {/* ground */}
+          <path d="M0 318 Q 200 292 400 318 L400 400 L0 400 Z" fill="url(#hx-ground)" />
+          <path d="M0 318 Q 200 292 400 318" className="hx-horizon" />
+          <ellipse cx="150" cy="350" rx="18" ry="4" className="hx-crater-g" />
+          <ellipse cx="290" cy="370" rx="26" ry="5" className="hx-crater-g" />
+          <ellipse cx="60" cy="380" rx="14" ry="3" className="hx-crater-g" />
+
+          {/* launch pad + rocket */}
+          <g className="hx-pad">
+            <rect x="40" y="250" width="5" height="62" className="hx-tower" />
+            {[258, 272, 286, 300].map((y) => (
+              <line key={y} x1="45" y1={y} x2="58" y2={y} className="hx-tower-arm" />
+            ))}
+            <rect x="36" y="310" width="54" height="6" rx="2" className="hx-tower" />
+          </g>
+          <g className="hx-smoke">
+            {[0, 1, 2, 3].map((i) => (
+              <circle key={i} cx={58 + i * 9} cy="312" r="7" style={v({ animationDelay: `${i * 0.12}s` })} />
+            ))}
+          </g>
+          <g className="hx-rocket">
+            <path d="M64 262 Q 70 236 76 262 Z" className="hx-rk-nose" />
+            <rect x="64" y="262" width="12" height="40" rx="2" className="hx-rk-body" />
+            <rect x="64" y="276" width="12" height="4" className="hx-rk-band" />
+            <circle cx="70" cy="270" r="2.4" className="hx-rk-window" />
+            <path d="M64 290 L56 306 L64 302 Z" className="hx-rk-fin" />
+            <path d="M76 290 L84 306 L76 302 Z" className="hx-rk-fin" />
+            <path d="M65 304 Q 70 336 75 304 Z" fill="url(#hx-flame)" className="hx-rk-flame" />
+          </g>
+
+          {/* ground station */}
+          <g className="hx-station">
+            <rect x="338" y="296" width="4" height="18" className="hx-tower" />
+            <path d="M322 296 Q 340 312 358 290" className="hx-dish" />
+            <line x1="340" y1="300" x2="331" y2="285" className="hx-tower-arm" />
+            {[0, 1, 2].map((i) => (
+              <path key={i} d="M322 276 Q 326 266 336 264" className="hx-signal" style={v({ animationDelay: `${i * 0.5}s` })} />
+            ))}
+          </g>
+
+          {/* rover */}
+          <g className="hx-rover">
+            <rect x="0" y="0" width="34" height="11" rx="3" className="hx-rv-body" />
+            <rect x="2" y="-5" width="30" height="4" rx="1" className="hx-rv-panel" />
+            <line x1="26" y1="-5" x2="26" y2="-15" className="hx-tower-arm" />
+            <rect x="23" y="-20" width="8" height="6" rx="1.5" className="hx-rv-cam" />
+            <circle cx="30" cy="-17" r="1.3" className="hx-sat-led" />
+            {[5, 17, 29].map((x) => (
+              <g key={x} className="hx-wheel" style={v({ transformOrigin: `${x}px 14px` })}>
+                <circle cx={x} cy="14" r="5.5" className="hx-rv-wheel" />
+                <line x1={x - 5} y1="14" x2={x + 5} y2="14" className="hx-rv-spoke" />
+              </g>
+            ))}
+          </g>
+        </svg>
+
+        <div className="hx-mission">
+          <span className="hx-mission-head">
+            <i /> Mission log <b className="hx-tminus" />
+          </span>
+          <span className="hx-mission-row">ALT <b className="gs-count hx-alt" style={v({ "--to": 124 })} /> km</span>
+          <span className="hx-mission-row">VEL <b>7.6</b> km/s</span>
+          <span className="hx-mission-row">
+            LINK
+            <span className="hx-bars-sig">
+              <i /><i /><i /><i />
+            </span>
           </span>
         </div>
-        <div className="hx-dock" />
-      </div>
-
-      <div className="hx-rb hx-rb-max">
-        <div className="hx-rb-inner"><ServoBot look={L.graphite} /></div>
-        <Pcb className="hx-pcb-max" />
-        <span className="hx-sparks"><i /><i /><i /><i /></span>
-        <span className="hx-rb-name">Max · soldering</span>
-      </div>
-      <div className="hx-rb hx-rb-nova">
-        <div className="hx-rb-inner"><ServoBot look={L.wine} /></div>
-        <Pcb className="hx-pcb-nova" />
-        <span className="hx-rb-name">Nova · testing</span>
-      </div>
-      <div className="hx-rb hx-rb-ruby">
-        <div className="hx-rb-walk">
-          <div className="hx-rb-inner"><ServoBot look={L.red} /></div>
-          <Battery className="hx-batt-ruby" />
-        </div>
-        <span className="hx-rb-name">Ruby · battery run</span>
-      </div>
-      <div className="hx-rb hx-rb-pixel">
-        <div className="hx-rb-inner"><ServoBot look={{ ...L.cream, sitting: true }} /></div>
-        <span className="hx-rb-name">Pixel · coding</span>
-      </div>
-      <div className="hx-rb hx-rb-chip">
-        <div className="hx-rb-inner"><ServoBot look={{ ...L.red, sitting: true }} /></div>
-        <Battery className="hx-batt-chip" />
-        <span className="hx-rb-name">Chip · charging</span>
-      </div>
-      <div className="hx-rb hx-rb-bolt">
-        <div className="hx-rb-run">
-          <div className="hx-rb-inner"><ServoBot look={L.cream} /></div>
+        <div className="hx-legend">
+          <span>Rocket</span>
+          <span>CubeSat</span>
+          <span>Rover</span>
+          <span>Ground station</span>
         </div>
       </div>
-
-      <span className="hx-say hx-say-1">Board soldered!</span>
-      <span className="hx-say hx-say-2">Code uploaded ✓</span>
-      <span className="hx-say hx-say-3">LED is blinking!</span>
-      <span className="hx-say hx-say-4">Fresh battery, coming through!</span>
       <Toast className="hx-st-t">
         <Check className="size-3 text-accent" strokeWidth={3} /> Demo · parts list · code
       </Toast>
